@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>开发者 API 接入指南 · Nova Nexus 星海智能</title>
+<style>
+  :root{--bg:#070a16;--bg2:#0d1226;--card:#121833;--line:#283158;--txt:#eaf0ff;--mut:#9aa3c9;--acc:#5b8cff;--acc2:#22d3ee;--gold:#f5b544;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font-family:-apple-system,"PingFang SC","Microsoft YaHei",Segoe UI,sans-serif;line-height:1.7}
+  a{color:var(--acc2);text-decoration:none}
+  .wrap{max-width:900px;margin:0 auto;padding:40px 20px 70px}
+  .crumb{color:var(--mut);font-size:13px;margin-bottom:18px}
+  h1{font-size:30px;font-weight:850;background:linear-gradient(92deg,var(--acc),var(--acc2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .lead{color:var(--mut);margin:10px 0 26px}
+  h2{font-size:21px;margin:34px 0 12px;border-left:4px solid var(--acc2);padding-left:12px}
+  p,li{color:#d4dcff;font-size:15px}
+  ul{padding-left:20px;margin:8px 0}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:14px 0}
+  pre{background:#0a0f22;border:1px solid var(--line);border-radius:12px;padding:16px 18px;overflow:auto;font-size:13.5px;line-height:1.55}
+  code{font-family:"SFMono-Regular",Consolas,Menlo,monospace;color:#9fe7ff}
+  pre code{color:#cfe6ff}
+  .tag{display:inline-block;background:rgba(34,211,238,.12);color:var(--acc2);border-radius:6px;padding:1px 9px;font-size:12px;font-weight:700;margin-right:6px}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px}
+  th,td{border:1px solid var(--line);padding:10px 12px;text-align:left}
+  th{background:var(--card);color:var(--mut)}
+  .note{background:rgba(245,181,68,.1);border:1px solid rgba(245,181,68,.35);border-radius:12px;padding:14px 16px;font-size:14px;color:#f3d9a6;margin:14px 0}
+  footer{margin-top:40px;color:var(--mut);font-size:13px;border-top:1px solid var(--line);padding-top:18px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="crumb"><a href="../index.html">Nova Nexus</a> / 开发者 API 接入指南</div>
+  <h1>开发者 API 接入指南</h1>
+  <p class="lead">Nova Nexus 提供 <b>OpenAI 兼容</b>的统一 API：一个 Key，调用对话 / 视频 / 图片 / 语音四类模型，统一鉴权、统一计费、迁移零成本。</p>
+
+  <div class="note">本文档仅描述接入方式，不含任何价格 / 利润 / 加价率等业务数据。具体模型目录与计费以官方实时信息为准。</div>
+
+  <h2>① 快速开始</h2>
+  <div class="card">
+    <p><span class="tag">对话</span>把 <code>base_url</code> 指向 Nova Nexus 网关，其余与 OpenAI SDK 完全一致：</p>
+    <pre><code>from openai import OpenAI
+
+client = OpenAI(
+    base_url="https://&lt;网关地址&gt;/v1",   # 见官方接入文档
+    api_key="YOUR_NOVA_NEXUS_KEY",
+)
+
+resp = client.chat.completions.create(
+    model="gpt-4o",
+    messages=[{"role":"user","content":"用一句话介绍 Nova Nexus"}],
+)
+print(resp.choices[0].message.content)</code></pre>
+  </div>
+  <div class="card">
+    <p><span class="tag">Node</span>同样兼容官方 SDK：</p>
+    <pre><code>import OpenAI from "openai";
+
+const client = new OpenAI({
+  baseURL: "https://&lt;网关地址&gt;/v1",
+  apiKey: "YOUR_NOVA_NEXUS_KEY",
+});
+
+const resp = await client.chat.completions.create({
+  model: "claude-3-5-sonnet",
+  messages: [{ role: "user", content: "Hello" }],
+});
+console.log(resp.choices[0].message.content);</code></pre>
+  </div>
+
+  <h2>② 四类能力，一个 Key</h2>
+  <table>
+    <tr><th>能力</th><th>典型用途</th><th>说明</th></tr>
+    <tr><td>💬 对话</td><td>聊天 / Agent / 客服</td><td>GPT / Claude / Kimi / 智谱 等 26 款</td></tr>
+    <tr><td>🎬 视频</td><td>文生视频 / 图生视频</td><td>可灵 / Seedance / Veo / 即梦 / PixVerse / MiniMax 等 36 款</td></tr>
+    <tr><td>🖼️ 图片</td><td>文生图 / 编辑</td><td>Seedream / GPT Image / 通义万相 等 15 款</td></tr>
+    <tr><td>🎙️ 语音</td><td>TTS / 语音克隆 / 音乐</td><td>Suno / MiniMax Voice / TTS 克隆 等 8 款</td></tr>
+  </table>
+
+  <h2>③ 接入要点</h2>
+  <ul>
+    <li><b>统一鉴权</b>：所有模型共用同一个 API Key，无需为每个模型单独申请。</li>
+    <li><b>统一计费</b>：一份账单覆盖四类调用，便于对账与成本控制。</li>
+    <li><b>国产全覆盖</b>：DeepSeek / Kimi / 智谱 / 通义 / 豆包 / 可灵 / 即梦 / Seedance 等均可调用。</li>
+    <li><b>人民币结算</b>：国内支付直接充值，无需双币信用卡。</li>
+    <li><b>迁移零成本</b>：已有 OpenAI 兼容代码，仅改 <code>base_url</code> 与 <code>api_key</code> 即可切换。</li>
+  </ul>
+
+  <h2>④ 模型目录与最新列表</h2>
+  <p>实时在售模型清单见 <a href="../docs/models.html">模型覆盖页</a>，或在接入后通过模型列表接口查询。模型持续上新，以官方实时目录为准。</p>
+
+  <div class="note">⚠️ 合规提示：本服务面向开发者与企业，请遵守平台使用条款，勿将服务用于与其声明不符的场景。</div>
+
+  <footer>
+    <a href="../index.html">← 返回品牌首页</a> ·
+    <a href="../price/index.html">价格对比</a><br>
+    © Nova Nexus 星海智能国际站 · 开发者文档
+  </footer>
+</div>
+</body>
+</html>

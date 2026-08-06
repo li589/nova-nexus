@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nova Nexus 星海智能国际站 · 多模型统一调用 + 全流程 AI 短剧</title>
+<meta name="description" content="Nova Nexus 星海智能国际站 —— 面向开发者与企业的 AI 中台：多模型统一调用（OpenAI 兼容 API）与全流程 AI 短剧网页工作台。">
+<style>
+  :root{
+    --bg:#070a16; --bg2:#0d1226; --card:#121833; --card2:#171d3d;
+    --line:#283158; --txt:#eaf0ff; --mut:#9aa3c9; --acc:#5b8cff; --acc2:#22d3ee;
+    --gold:#f5b544; --grn:#34d399; --vio:#a78bfa; --red:#fb7185;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:radial-gradient(1200px 700px at 75% -8%,#16204f 0%,var(--bg) 55%);
+    color:var(--txt);font-family:-apple-system,"PingFang SC","Microsoft YaHei",Segoe UI,sans-serif;
+    line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--acc2);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+  /* Nav */
+  nav{position:sticky;top:0;z-index:20;backdrop-filter:blur(10px);
+    background:rgba(7,10,22,.72);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.4px}
+  .brand .logo{width:30px;height:30px}
+  .navlinks{display:flex;gap:22px;font-size:14px;color:var(--mut)}
+  .navlinks a{color:var(--mut)} .navlinks a:hover{color:var(--txt);text-decoration:none}
+  /* Hero */
+  header{padding:74px 0 48px;text-align:center}
+  .eyebrow{display:inline-block;font-size:13px;color:var(--acc2);
+    border:1px solid var(--line);border-radius:999px;padding:5px 14px;margin-bottom:20px;
+    background:rgba(34,211,238,.07)}
+  h1{font-size:clamp(30px,5vw,48px);font-weight:850;line-height:1.18;
+    background:linear-gradient(92deg,var(--acc),var(--acc2),var(--vio));
+    -webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{margin-top:14px;color:var(--mut);font-size:17px}
+  .tagline{margin-top:10px;font-size:20px;font-weight:700;color:var(--gold)}
+  .cta{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .btn{padding:12px 22px;border-radius:12px;font-weight:700;font-size:15px;
+    border:1px solid var(--line);background:var(--card);color:var(--txt);transition:.18s}
+  .btn:hover{text-decoration:none;border-color:var(--acc);transform:translateY(-2px)}
+  .btn.primary{background:linear-gradient(92deg,var(--acc),var(--acc2));border:none;color:#04122b}
+  /* Sections */
+  section{padding:46px 0}
+  .sec-h{font-size:26px;font-weight:800;margin-bottom:6px;display:flex;align-items:center;gap:10px}
+  .sec-sub{color:var(--mut);margin-bottom:24px;font-size:15px}
+  /* Capability cards */
+  .caps{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .cap{background:linear-gradient(155deg,var(--card),var(--card2));
+    border:1px solid var(--line);border-radius:18px;padding:26px}
+  .cap .ico{font-size:30px}
+  .cap h3{font-size:20px;margin:12px 0 6px}
+  .cap .who{font-size:12px;color:var(--acc2);font-weight:700;letter-spacing:.5px;text-transform:uppercase}
+  .cap p{color:var(--mut);font-size:14.5px;margin-top:8px}
+  .cap ul{margin-top:12px;padding-left:18px;color:var(--mut);font-size:14px}
+  .cap ul li{margin:5px 0}
+  .cap .bad{display:inline-block;background:rgba(251,113,133,.12);color:var(--red);
+    border-radius:6px;padding:1px 8px;font-size:12px;font-weight:700;margin-top:12px}
+  /* KPI */
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 12px;text-align:center}
+  .kpi .n{font-size:30px;font-weight:850;color:var(--acc2)}
+  .kpi .l{font-size:13px;color:var(--mut);margin-top:4px}
+  /* Why */
+  .why{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .w{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+  .w h4{font-size:16px;display:flex;align-items:center;gap:8px}
+  .w p{color:var(--mut);font-size:14px;margin-top:6px}
+  /* Price banner */
+  .pricebox{background:linear-gradient(135deg,rgba(91,140,255,.14),rgba(34,211,238,.10));
+    border:1px solid var(--line);border-radius:18px;padding:30px;text-align:center}
+  .pricebox h3{font-size:22px}
+  .pricebox p{color:var(--mut);margin:10px auto 18px;max-width:640px}
+  /* Footer */
+  footer{border-top:1px solid var(--line);padding:34px 0 50px;color:var(--mut);font-size:13.5px}
+  .compliance{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:18px 20px;margin-bottom:22px;font-size:13.5px;color:var(--mut)}
+  .compliance b{color:var(--txt)}
+  .foot-grid{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
+  @media(max-width:760px){.caps,.kpis,.why{grid-template-columns:1fr}
+    .kpis{grid-template-columns:repeat(2,1fr)}.navlinks{display:none}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">
+      <svg class="logo" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="24" cy="24" r="5" fill="#5b8cff"/>
+        <circle cx="24" cy="24" r="5" fill="#22d3ee" opacity=".5"/>
+        <g stroke="#22d3ee" stroke-width="1.4" opacity=".8">
+          <line x1="24" y1="24" x2="9" y2="12"/><line x1="24" y1="24" x2="40" y2="14"/>
+          <line x1="24" y1="24" x2="42" y2="34"/><line x1="24" y1="24" x2="10" y2="38"/>
+        </g>
+        <g fill="#a78bfa">
+          <circle cx="9" cy="12" r="2.6"/><circle cx="40" cy="14" r="2.6"/>
+          <circle cx="42" cy="34" r="2.6"/><circle cx="10" cy="38" r="2.6"/>
+        </g>
+      </svg>
+      <span>Nova Nexus</span>
+    </div>
+    <div class="navlinks">
+      <a href="#caps">核心能力</a>
+      <a href="#coverage">模型覆盖</a>
+      <a href="#why">为什么选</a>
+      <a href="price/index.html">价格对比</a>
+      <a href="docs/api.html">开发者文档</a>
+    </div>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap">
+    <span class="eyebrow">面向开发者与企业的 AI 中台</span>
+    <h1>Nova Nexus 星海智能国际站</h1>
+    <div class="tagline">多模型统一调用 · 全流程 AI 短剧制作</div>
+    <p class="sub">一个入口，聚合对话 / 视频 / 图片 / 语音四类模型；一套网页工作台，把 AI 短剧从剧本设计到成片跑通。</p>
+    <div class="cta">
+      <a class="btn primary" href="#caps">了解核心能力</a>
+      <a class="btn" href="price/index.html">查看真实价格对比</a>
+      <a class="btn" href="docs/api.html">开发者 API 接入</a>
+    </div>
+  </div>
+</header>
+
+<!-- 核心能力 -->
+<section id="caps">
+  <div class="wrap">
+    <div class="sec-h">🧩 两件独立的事，一起给你</div>
+    <div class="sec-sub">面向开发者的「统一调用」与面向创作者的「网页端设计」是两条产品线，分开讲、各取所需。</div>
+    <div class="caps">
+      <div class="cap">
+        <div class="ico">🔌</div>
+        <div class="who">For Developers · 开发者</div>
+        <h3>多模型统一调用（API 聚合）</h3>
+        <p>一个 API Key，调用对话 / 视频 / 图片 / 语音四类模型，OpenAI 兼容协议，迁移零成本。</p>
+        <ul>
+          <li>统一鉴权与计费，一份代码调遍全平台</li>
+          <li>国产旗舰全覆盖：DeepSeek / Kimi / 智谱 / 通义 / 豆包 / 可灵 / 即梦 / Seedance</li>
+          <li>人民币结算，国内支付充值即用，无需双币信用卡</li>
+        </ul>
+      </div>
+      <div class="cap">
+        <div class="ico">🎬</div>
+        <div class="who">For Creators · 创作者</div>
+        <h3>全流程 AI 短剧制作（网页工作台）</h3>
+        <p>在网页端可视化设计 AI 剧集，剧本 → 分镜 → 出图 → 视频 → 配音 → 成片，无需自己接 API、拼工作流。</p>
+        <ul>
+          <li>可视化一站式，非技术人员也能上手</li>
+          <li>底层统一调用平台多模型（视频 36 / 图片 15 / 语音 8）</li>
+          <li>短剧是「设计」出来的，不是靠一个 key 跑出来的</li>
+        </ul>
+        <span class="bad">与 API 聚合是两条产品线，请勿混淆</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 模型覆盖 -->
+<section id="coverage">
+  <div class="wrap">
+    <div class="sec-h">🌐 底层模型覆盖</div>
+    <div class="sec-sub">在售模型作为两大能力的统一底层支撑（数据以官方实时目录为准）。</div>
+    <div class="kpis">
+      <div class="kpi"><div class="n">26</div><div class="l">💬 对话模型</div></div>
+      <div class="kpi"><div class="n">36</div><div class="l">🎬 视频生成</div></div>
+      <div class="kpi"><div class="n">15</div><div class="l">🖼️ 图片生成</div></div>
+      <div class="kpi"><div class="n">8</div><div class="l">🎙️ 语音生成</div></div>
+    </div>
+    <p style="color:var(--mut);margin-top:16px;font-size:14.5px">
+      视频生成覆盖 可灵 / Seedance / Veo / 即梦 / PixVerse / MiniMax；图片覆盖 Seedream / GPT Image / 通义万相；
+      语音覆盖 Suno / MiniMax Voice / TTS 克隆；对话覆盖 GPT / Claude / Kimi / 智谱 等。国产模型持续上新。
+    </p>
+  </div>
+</section>
+
+<!-- 为什么选 -->
+<section id="why">
+  <div class="wrap">
+    <div class="sec-h">✨ 为什么是我们</div>
+    <div class="sec-sub">三个同行短期打不出来的差异化，也是这个仓库存在的原因。</div>
+    <div class="why">
+      <div class="w"><h4>📊 价格透明实测</h4><p>不做「低至 X 折」的空口承诺，真实价格对比可查、可截图、可复核。</p></div>
+      <div class="w"><h4>🛠️ 开发者视角</h4><p>由开发者撰写与维护的接入文档、示例与对比，比软文可信度高一个量级。</p></div>
+      <div class="w"><h4>🎬 AI 短剧网页台</h4><p>同行几乎只做 API 转发，可视化创作台是独占赛道，创作者开箱即用。</p></div>
+      <div class="w"><h4>🇨🇳 国内友好</h4><p>人民币结算、国内支付直接充值，国产主流模型全覆盖，低门槛上手。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 价格 -->
+<section>
+  <div class="wrap">
+    <div class="pricebox">
+      <h3>💰 价格透明，不玩虚的</h3>
+      <p>计价方式不同（按次 ⚡ / 按百万 token $）不能直接换算，但覆盖度与结算方式一目了然。我们整理了一份 Nova Nexus 与公开平台的真实价格对比页，欢迎自行核对。</p>
+      <a class="btn primary" href="price/index.html">打开价格对比页 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer / 合规 -->
+<footer>
+  <div class="wrap">
+    <div class="compliance">
+      <b>合规说明：</b>本仓库为 Nova Nexus 星海智能国际站的<b>品牌与开发者展示</b>，内容面向<b>开发者与企业</b>。
+      所有价格对比均标注「以官方实时报价为准」，不含任何进货价 / 利润 / 加价率等经营数据。
+      平台服务须遵守其使用条款，请勿将服务用于与其声明不符的场景。
+    </div>
+    <div class="foot-grid">
+      <div>
+        <div style="font-weight:700;color:var(--txt)">Nova Nexus 星海智能国际站</div>
+        <div style="margin-top:6px">多模型统一调用 · 全流程 AI 短剧制作</div>
+      </div>
+      <div style="text-align:right">
+        <div><a href="docs/api.html">开发者文档</a> · <a href="docs/models.html">模型覆盖</a> · <a href="price/index.html">价格对比</a></div>
+        <div style="margin-top:6px">接入资料与模型目录：请通过官方渠道获取</div>
+      </div>
+    </div>
+    <div style="margin-top:18px;font-size:12.5px;opacity:.7">© Nova Nexus 星海智能国际站 · 本页为品牌展示，最终以官方平台实时信息为准。</div>
+  </div>
+</footer>
+
+</body>
+</html>

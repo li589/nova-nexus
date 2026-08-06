@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>模型覆盖 · Nova Nexus 星海智能</title>
+<style>
+  :root{--bg:#070a16;--card:#121833;--line:#283158;--txt:#eaf0ff;--mut:#9aa3c9;--acc:#5b8cff;--acc2:#22d3ee;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font-family:-apple-system,"PingFang SC","Microsoft YaHei",Segoe UI,sans-serif;line-height:1.7}
+  a{color:var(--acc2);text-decoration:none}
+  .wrap{max-width:900px;margin:0 auto;padding:40px 20px 70px}
+  .crumb{color:var(--mut);font-size:13px;margin-bottom:18px}
+  h1{font-size:30px;font-weight:850;background:linear-gradient(92deg,var(--acc),var(--acc2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .lead{color:var(--mut);margin:10px 0 22px}
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:22px 0}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 10px;text-align:center}
+  .kpi .n{font-size:28px;font-weight:850;color:var(--acc2)}
+  .kpi .l{font-size:13px;color:var(--mut);margin-top:4px}
+  .sec{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;margin:16px 0}
+  .sec h2{font-size:19px;margin-bottom:10px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{background:#0a0f22;border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:13.5px;color:#cfe6ff}
+  .note{background:rgba(34,211,238,.08);border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-size:14px;color:var(--mut);margin:18px 0}
+  footer{margin-top:30px;color:var(--mut);font-size:13px;border-top:1px solid var(--line);padding-top:18px}
+  @media(max-width:760px){.kpis{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="crumb"><a href="../index.html">Nova Nexus</a> / 模型覆盖</div>
+  <h1>模型覆盖清单</h1>
+  <p class="lead">Nova Nexus 以统一 API 聚合对话 / 视频 / 图片 / 语音四类模型，作为「多模型统一调用」与「AI 短剧网页工作台」的底层支撑。</p>
+
+  <div class="kpis">
+    <div class="kpi"><div class="n">26</div><div class="l">💬 对话模型</div></div>
+    <div class="kpi"><div class="n">36</div><div class="l">🎬 视频生成</div></div>
+    <div class="kpi"><div class="n">15</div><div class="l">🖼️ 图片生成</div></div>
+    <div class="kpi"><div class="n">8</div><div class="l">🎙️ 语音生成</div></div>
+  </div>
+
+  <div class="sec">
+    <h2>💬 对话模型（26）</h2>
+    <div class="chips">
+      <span class="chip">GPT 系列</span><span class="chip">Claude 系列</span><span class="chip">DeepSeek</span>
+      <span class="chip">Kimi</span><span class="chip">智谱 GLM</span><span class="chip">通义千问</span>
+      <span class="chip">豆包</span><span class="chip">文心一言</span><span class="chip">更多国产 / 海外模型持续上新</span>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2>🎬 视频生成（36）</h2>
+    <div class="chips">
+      <span class="chip">可灵 Kling</span><span class="chip">Seedance</span><span class="chip">Veo</span>
+      <span class="chip">即梦 Dreamina</span><span class="chip">PixVerse</span><span class="chip">MiniMax</span>
+      <span class="chip">Runway</span><span class="chip">Luma</span><span class="chip">更多视频模型覆盖最广</span>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2>🖼️ 图片生成（15）</h2>
+    <div class="chips">
+      <span class="chip">Seedream</span><span class="chip">GPT Image</span><span class="chip">通义万相</span>
+      <span class="chip">即梦</span><span class="chip">Flux</span><span class="chip">SD / 国产生图模型</span>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2>🎙️ 语音生成（8）</h2>
+    <div class="chips">
+      <span class="chip">Suno</span><span class="chip">MiniMax Voice</span><span class="chip">TTS 语音克隆</span>
+      <span class="chip">CosyVoice</span><span class="chip">更多语音 / 音乐模型</span>
+    </div>
+  </div>
+
+  <div class="note">📌 以上为公开能力概览与代表性模型，实际在售模型清单与编号以官方实时目录为准；模型持续上新，国产主流模型已全覆盖。</div>
+
+  <footer>
+    <a href="../index.html">← 返回品牌首页</a> ·
+    <a href="../docs/api.html">开发者 API 接入</a><br>
+    © Nova Nexus 星海智能国际站 · 模型覆盖页
+  </footer>
+</div>
+</body>
+</html>
