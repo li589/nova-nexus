@@ -6,6 +6,8 @@
 
 🌐 在线展示（GitHub Pages）：https://li589.github.io/nova-nexus/
 
+🔗 官方网站（分站入口）：https://dolphin.token6688.com/
+
 ---
 
 ## 两件独立的事
