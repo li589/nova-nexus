@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nova Nexus 星海智能 · 一站式 AI 模型对比</title>
+<title>Nova Nexus 星海智能 · AI 模型价格与覆盖对比</title>
 <style>
   :root{
     --bg:#0b0e1a; --bg2:#11152a; --card:#161b33; --card2:#1c2240;
@@ -14,7 +14,7 @@
   body{background:radial-gradient(1200px 600px at 70% -10%,#1a2150 0%,var(--bg) 55%);
     color:var(--txt);font-family:-apple-system,"PingFang SC","Microsoft YaHei",Segoe UI,sans-serif;
     line-height:1.6;padding:0 0 60px}
-  .wrap{max-width:900px;margin:0 auto;padding:0 18px}
+  .wrap{max-width:960px;margin:0 auto;padding:0 18px}
   /* Header */
   header{padding:42px 18px 26px;text-align:center;
     background:linear-gradient(180deg,rgba(91,140,255,.14),transparent)}
@@ -24,11 +24,16 @@
   .logo .star{filter:drop-shadow(0 0 10px var(--acc2))}
   .tag{margin-top:8px;color:var(--mut);font-size:14px}
   .upd{margin-top:6px;color:var(--mut);font-size:12px}
+  .upd b{color:var(--acc2)}
+  .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--grn);
+    margin-right:5px;animation:pulse 2s infinite;vertical-align:middle}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
   /* Hook */
   .hook{margin:22px 0;padding:20px 22px;border-radius:16px;
     background:linear-gradient(135deg,rgba(251,113,133,.12),rgba(91,140,255,.10));
     border:1px solid var(--line);font-size:16px}
   .hook b{color:var(--gold)}
+  .hook a{color:var(--acc2);font-weight:700;text-decoration:none}
   /* KPI */
   .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0}
   .kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;
@@ -43,14 +48,22 @@
   .sec .sub{color:var(--mut);font-size:13px;margin-bottom:14px}
   .chartbox{position:relative;height:300px}
   /* Table */
-  table{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
-  th,td{padding:9px 8px;text-align:left;border-bottom:1px solid var(--line)}
-  th{color:var(--mut);font-weight:600;font-size:12px}
-  td.name{font-weight:600}
-  .tag-ok{display:inline-block;background:rgba(52,211,153,.16);color:var(--grn);
-    border-radius:6px;padding:1px 7px;font-size:11px;font-weight:700}
-  .tag-no{display:inline-block;background:rgba(139,147,184,.12);color:var(--mut);
-    border-radius:6px;padding:1px 7px;font-size:11px}
+  .tblwrap{overflow:auto;max-height:560px;border-radius:10px;border:1px solid var(--line)}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th{position:sticky;top:0;background:var(--card2);color:var(--mut);text-align:left;
+    padding:9px 10px;font-weight:600;font-size:12px;white-space:nowrap;
+    border-bottom:1px solid var(--line);z-index:2}
+  td{padding:8px 10px;border-bottom:1px solid rgba(42,51,88,.4);color:var(--mut);white-space:nowrap}
+  tr:hover td{background:rgba(91,140,255,.05)}
+  td.name{color:var(--txt);font-weight:600;white-space:normal;min-width:130px}
+  td.num{text-align:right;font-variant-numeric:tabular-nums;font-family:Consolas,Menlo,monospace}
+  td.nn-price{color:var(--gold);font-weight:700}
+  td.or-price{color:var(--acc)}
+  .pill{display:inline-block;font-size:10px;border-radius:4px;padding:1px 6px;font-weight:600;margin-left:4px}
+  .p-chat{background:rgba(91,140,255,.15);color:var(--acc)}
+  .p-video{background:rgba(167,139,250,.15);color:var(--vio)}
+  .p-image{background:rgba(34,211,238,.15);color:var(--acc2)}
+  .p-audio{background:rgba(52,211,153,.15);color:var(--grn)}
   .unit{color:var(--mut);font-size:11px}
   /* Gen grid */
   .gen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:6px}
@@ -72,6 +85,21 @@
   /* note */
   .note{font-size:11.5px;color:var(--mut);background:var(--bg2);border:1px dashed var(--line);
     border-radius:10px;padding:11px 13px;margin-top:12px}
+  /* filter bar */
+  .filterbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+  .filterbar input{flex:1;min-width:180px;padding:9px 13px;border-radius:10px;
+    border:1px solid var(--line);background:var(--bg2);color:var(--txt);font-size:13px;outline:none}
+  .filterbar input:focus{border-color:var(--acc)}
+  .filterbar input::placeholder{color:var(--mut)}
+  .tabs{display:flex;gap:6px;flex-wrap:wrap}
+  .tab{padding:7px 14px;border-radius:8px;border:1px solid var(--line);background:var(--bg2);
+    color:var(--mut);font-size:12px;font-weight:600;cursor:pointer;transition:.15s;user-select:none}
+  .tab:hover{color:var(--txt)}
+  .tab.active{background:var(--acc);color:#04122b;border-color:var(--acc)}
+  .sortsel{padding:7px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg2);
+    color:var(--txt);font-size:12px;outline:none}
+  .rescount{font-size:12px;color:var(--mut);margin-top:8px}
+  .rescount b{color:var(--acc2)}
   footer{text-align:center;color:var(--mut);font-size:11.5px;margin-top:26px;line-height:1.8}
   footer a{color:var(--acc);text-decoration:none}
   @media(max-width:640px){
@@ -79,6 +107,7 @@
     .gen{grid-template-columns:1fr}
     .pts{grid-template-columns:1fr}
     .logo{font-size:24px}
+    .filterbar input{min-width:140px}
   }
 </style>
 </head>
@@ -93,7 +122,7 @@
   <div class="hook">
     🔥 想用 AI 做<b>视频生成 / 图片创作 / 语音配音</b>？海外聚合平台（如 OpenRouter）几乎只有文本对话模型。
     <b>Nova Nexus 星海智能</b>把这些多模态能力一次性集齐——国产旗舰 + 海外大模型 + 生成模型，一个 key 全搞定。
-    <a href="https://dolphin.token6688.com/" target="_blank" rel="noopener" style="color:var(--acc2);font-weight:700;text-decoration:none">前往官网体验 →</a>
+    <a href="https://dolphin.token6688.com/" target="_blank" rel="noopener">前往官网体验 →</a>
   </div>
 
   <div class="kpis" id="kpis"></div>
@@ -102,25 +131,8 @@
     <h2><span class="em">📊</span> 模型覆盖对比：Nova Nexus vs OpenRouter</h2>
     <div class="sub">同为聚合平台，品类结构天差地别。橙色=Nova Nexus，蓝色=OpenRouter。</div>
     <div class="chartbox"><canvas id="cCat"></canvas></div>
-    <div class="note">说明：OpenRouter 以文本对话模型为主（308 款），视频/图片/音频生成模型极少；
+    <div class="note">说明：OpenRouter 以文本对话模型为主（369 款），视频/图片/音频生成模型极少；
       Nova Nexus 在<b>生成类模型</b>上数量反超，且覆盖国产独家模型。</div>
-  </div>
-
-  <div class="sec">
-    <h2><span class="em">💬</span> 主流对话模型：同款都有，计价方式不同</h2>
-    <div class="sub">Nova Nexus 覆盖所有顶级旗舰对话模型；下方为「同模型」在两侧的价格呈现。</div>
-    <table id="tChat">
-      <thead><tr>
-        <th>模型</th>
-        <th>Nova Nexus <span class="unit">(⚡/次)</span></th>
-        <th>OpenRouter <span class="unit">($/M token)</span></th>
-        <th>智能指数</th>
-      </tr></thead>
-      <tbody></tbody>
-    </table>
-    <div class="note">⚡ 为平台算力点（人民币充值按实时汇率结算），按「次/张」计费；OpenRouter 按「百万 token」计费。
-      两者计价方式不同，<b>金额不可直接换算</b>。Nova Nexus 的差异化在于：<b>同一账号可同时调用对话、视频、图片、语音四类模型</b>，
-      无需分别注册海外厂商账号、无需双币信用卡。</div>
   </div>
 
   <div class="sec">
@@ -128,6 +140,43 @@
     <div class="sub">视频 / 图片 / 语音生成模型数量对比（OpenRouter 基本缺席）。</div>
     <div class="gen" id="gen"></div>
     <div class="chips" id="videoChips"></div>
+  </div>
+
+  <div class="sec">
+    <h2><span class="em">🔍</span> 全量模型价格表</h2>
+    <div class="sub">94 款在售模型 · 支持搜索与分类筛选 · ⚡ 为 Nova Nexus 对外价（按次/张计费），$ 为 OpenRouter 混合价（按百万 token 计费，两者不可直接换算）。</div>
+    <div class="filterbar">
+      <input type="text" id="search" placeholder="搜索模型名称…（如 GPT、可灵、Seedance）">
+      <div class="tabs" id="tabs">
+        <div class="tab active" data-cat="all">全部</div>
+        <div class="tab" data-cat="chat">💬 对话</div>
+        <div class="tab" data-cat="video">🎬 视频</div>
+        <div class="tab" data-cat="image">🖼️ 图片</div>
+        <div class="tab" data-cat="audio">🎙️ 语音</div>
+      </div>
+      <select class="sortsel" id="sortsel">
+        <option value="cat">按分类</option>
+        <option value="nn-desc">⚡价格 高→低</option>
+        <option value="nn-asc">⚡价格 低→高</option>
+        <option value="name">名称 A-Z</option>
+      </select>
+    </div>
+    <div class="rescount" id="rescount"></div>
+    <div class="tblwrap">
+      <table id="tAll">
+        <thead><tr>
+          <th>模型</th>
+          <th>分类</th>
+          <th>Nova Nexus <span class="unit">(⚡/次)</span></th>
+          <th>OpenRouter <span class="unit">($/M token)</span></th>
+          <th>智能指数</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="note">⚡ 为平台算力点（人民币充值按实时汇率结算），按「次/张」计费；OpenRouter 按「百万 token」计费。
+      两者计价方式不同，<b>金额不可直接换算</b>。Nova Nexus 的差异化在于：<b>同一账号可同时调用对话、视频、图片、语音四类模型</b>，
+      无需分别注册海外厂商账号、无需双币信用卡。「—」表示该平台无此模型或无公开报价。</div>
   </div>
 
   <div class="sec">
@@ -144,7 +193,7 @@
   </div>
 
   <footer>
-    数据来源：各厂商官方定价页（经 AI Pricing Guru 聚合）、OpenRouter 公开模型目录、SuperCLUE 中文大模型基准。<br>
+    数据来源：Nova Nexus 官方实时模型目录 · OpenRouter 公开模型目录 · SuperCLUE 中文大模型基准 · AI Pricing Guru 聚合。<br>
     性能指数引用 Artificial Analysis 与 SuperCLUE 公开榜单。价格为公开对外价，仅供参考，以平台实时报价为准。<br>
     © Nova Nexus 星海智能 · 面向开发者与企业用户<br>
     官方网站：<a href="https://dolphin.token6688.com/" target="_blank" rel="noopener">https://dolphin.token6688.com/</a>
@@ -156,13 +205,16 @@
 <script>
 var D = window.NN_COMPARE || {rows:[],cat_nn:{},cat_or:{},domestic:[]};
 var CATNAME = {chat:"对话/文本", video:"视频生成", image:"图片生成", audio:"语音生成"};
-var CATCOLOR = {chat:"#5b8cff", video:"#a78bfa", image:"#22d3ee", audio:"#34d399"};
+var CATEMOJI = {chat:"💬", video:"🎬", image:"🖼️", audio:"🎙️"};
 
 // 更新时间
 (function(){
   var m = D.meta || {};
   var dt = m.date || (m.generated_at ? m.generated_at.slice(0,10) : "");
-  document.getElementById("upd").textContent = dt ? ("数据更新：" + dt) : "";
+  var src = m.price_source ? " · 来源：" + m.price_source : "";
+  document.getElementById("upd").innerHTML = dt
+    ? '<span class="dot"></span>数据更新：<b>'+dt+'</b>'+src
+    : "";
 })();
 
 // KPI
@@ -181,7 +233,6 @@ var CATCOLOR = {chat:"#5b8cff", video:"#a78bfa", image:"#22d3ee", audio:"#34d399
 
 // 品类覆盖图
 (function(){
-  // 只比生成类，避免 OpenRouter 308 个对话模型把 Y 轴拉爆
   var cats = ["video","image","audio"];
   var nn = cats.map(function(c){ return D.cat_nn[c]||0; });
   var or = cats.map(function(c){ return D.cat_or[c]||0; });
@@ -200,22 +251,6 @@ var CATCOLOR = {chat:"#5b8cff", video:"#a78bfa", image:"#22d3ee", audio:"#34d399
   });
 })();
 
-// 对话模型价格表（取有 OpenRouter 匹配的）
-(function(){
-  var rows = (D.rows||[]).filter(function(r){ return r.cat==="chat" && r.or_blended!=null; })
-    .sort(function(a,b){ return (b.or_blended||0)-(a.or_blended||0); })
-    .slice(0, 14);
-  var tb = document.querySelector("#tChat tbody");
-  tb.innerHTML = rows.map(function(r){
-    return "<tr>"+
-      '<td class="name">'+esc(r.name)+"</td>"+
-      "<td>⚡ "+fmt(r.nn)+"</td>"+
-      "<td>$ "+r.or_blended.toFixed(3)+"</td>"+
-      "<td>"+(r.intel!=null? r.intel.toFixed(1): "—")+"</td>"+
-    "</tr>";
-  }).join("");
-})();
-
 // 生成模型三卡
 (function(){
   var nn = D.cat_nn||{}, or = D.cat_or||{};
@@ -229,9 +264,8 @@ var CATCOLOR = {chat:"#5b8cff", video:"#a78bfa", image:"#22d3ee", audio:"#34d399
       '<div class="gr">OpenRouter 仅 <b>'+g.o+'</b> 款</div>'+
       '<div class="gr" style="color:#8b93b8">例：'+g.ex+'</div></div>';
   }).join("");
-  // 视频芯片
   var vids = (D.rows||[]).filter(function(r){return r.cat==="video";})
-    .map(function(r){return r.name;}).slice(0,22);
+    .map(function(r){return r.name;}).slice(0,24);
   document.getElementById("videoChips").innerHTML = vids.map(function(v){
     return '<span class="chip"><b>'+esc(v)+"</b></span>";
   }).join("") + '<span class="chip">… 等共 '+(D.cat_nn.video||0)+' 款</span>';
@@ -240,10 +274,7 @@ var CATCOLOR = {chat:"#5b8cff", video:"#a78bfa", image:"#22d3ee", audio:"#34d399
 // 国产模型
 (function(){
   var dom = D.domestic||[];
-  // 去重+精简品牌
-  var brands = ["豆包 Doubao","可灵 Kling","即梦","Seedance 即梦","通义 Qwen","Kimi","智谱 GLM",
-    "百度文心","Wan 万相","MiniMax 海螺","阶跃","Veo(谷歌)"];
-  document.getElementById("domChips").innerHTML = dom.slice(0,18).map(function(v){
+  document.getElementById("domChips").innerHTML = dom.slice(0,22).map(function(v){
     return '<span class="chip">'+esc(v)+"</span>";
   }).join("");
 })();
@@ -252,7 +283,7 @@ var CATCOLOR = {chat:"#5b8cff", video:"#a78bfa", image:"#22d3ee", audio:"#34d399
 (function(){
   var pts = [
     {h:"🧩 一站式聚合", b:"对话、视频、图片、语音四类模型一个 API key 全调用，OpenAI 兼容协议，迁移零成本。"},
-    {h:"🎬 多模态碾压", b:"36 款视频 + 15 款图片 + 8 款语音生成模型，海外聚合平台几乎空白的领域。"},
+    {h:"🎬 多模态碾压", b:"36 款视频 + 19 款图片 + 8 款语音生成模型，海外聚合平台几乎空白的领域。"},
     {h:"🇨🇳 国产全覆盖", b:"豆包、可灵、即梦、Seedance、通义、Kimi、智谱、百度——海外平台拿不到的这里都有。"},
     {h:"💳 人民币结算", b:"国内支付方式，充值即用，无双币信用卡门槛，锁价防套利。"},
     {h:"🔌 开发者友好", b:"统一接口、统一鉴权、统一计费，一份代码调遍全球模型，省去多平台对接。"},
@@ -263,9 +294,86 @@ var CATCOLOR = {chat:"#5b8cff", video:"#a78bfa", image:"#22d3ee", audio:"#34d399
   }).join("");
 })();
 
-function esc(s){ return String(s).replace(/[&<>"]/g,function(c){
+// ===== 全量价格表（搜索 + 分类筛选 + 排序） =====
+var allRows = (D.rows||[]).slice();
+var curCat = "all", curSort = "cat", curSearch = "";
+
+function fmtNN(v){
+  if(v==null) return "—";
+  if(v<0.001) return v.toFixed(6);
+  if(v<0.01) return v.toFixed(5);
+  if(v<1) return v.toFixed(4);
+  return v.toFixed(3);
+}
+function fmtOR(v){
+  if(v==null) return "—";
+  if(v>=100) return v.toFixed(1);
+  if(v>=1) return v.toFixed(2);
+  return v.toFixed(3);
+}
+
+function renderTable(){
+  var filtered = allRows.filter(function(r){
+    if(curCat!=="all" && r.cat!==curCat) return false;
+    if(curSearch && r.name.toLowerCase().indexOf(curSearch)<0) return false;
+    return true;
+  });
+  // 排序
+  if(curSort==="nn-desc"){
+    filtered.sort(function(a,b){ return (b.nn||0)-(a.nn||0); });
+  } else if(curSort==="nn-asc"){
+    filtered.sort(function(a,b){ return (a.nn||0)-(b.nn||0); });
+  } else if(curSort==="name"){
+    filtered.sort(function(a,b){ return a.name.localeCompare(b.name); });
+  } else {
+    // 按分类：chat > video > image > audio，同类按价格降序
+    var order = {chat:0, video:1, image:2, audio:3};
+    filtered.sort(function(a,b){
+      var o = (order[a.cat]||9)-(order[b.cat]||9);
+      if(o!==0) return o;
+      return (b.nn||0)-(a.nn||0);
+    });
+  }
+  var tb = document.querySelector("#tAll tbody");
+  tb.innerHTML = filtered.map(function(r){
+    var pillCls = "p-" + r.cat;
+    var pillHtml = '<span class="pill ' + pillCls + '">' + CATEMOJI[r.cat] + " " + CATNAME[r.cat] + "</span>";
+    var nnHtml  = r.nn != null ? "⚡ " + fmtNN(r.nn) : "—";
+    var orHtml  = r.or_blended != null ? "$ " + fmtOR(r.or_blended) : "—";
+    var intHtml = r.intel != null ? r.intel.toFixed(1) : "—";
+    return "<tr>" +
+      '<td class="name">' + esc(r.name) + "</td>" +
+      "<td>" + pillHtml + "</td>" +
+      '<td class="num nn-price">' + nnHtml + "</td>" +
+      '<td class="num or-price">' + orHtml + "</td>" +
+      '<td class="num">' + intHtml + "</td>" +
+    "</tr>";
+  }).join("");
+  document.getElementById("rescount").innerHTML =
+    '共 <b>'+filtered.length+'</b> / '+allRows.length+' 款模型';
+}
+
+document.getElementById("search").addEventListener("input", function(e){
+  curSearch = e.target.value.trim().toLowerCase();
+  renderTable();
+});
+document.getElementById("tabs").addEventListener("click", function(e){
+  var t = e.target.closest(".tab");
+  if(!t) return;
+  document.querySelectorAll(".tab").forEach(function(x){x.classList.remove("active");});
+  t.classList.add("active");
+  curCat = t.dataset.cat;
+  renderTable();
+});
+document.getElementById("sortsel").addEventListener("change", function(e){
+  curSort = e.target.value;
+  renderTable();
+});
+
+renderTable();
+
+function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g,function(c){
   return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
-function fmt(v){ return v<0.001? v.toFixed(6) : v.toFixed(4); }
 </script>
 </body>
 </html>
