@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 模型定价洞察 · Nova Nexus 星海智能</title>
+<style>
+  :root{
+    --bg:#0a0e1a; --bg2:#101828; --bg3:#162038; --bg4:#1e2d4a;
+    --line:#1e2d4a; --line2:#2a3f5f;
+    --tx:#eaf0fb; --tx2:#a0b0c8; --tx3:#6a7a92;
+    --blue:#4da3ff; --teal:#2dd4bf; --amber:#f5b544; --red:#ff6b6b; --green:#4ade80; --purple:#a78bfa; --pink:#f472b6;
+    --grad1:linear-gradient(135deg,#4da3ff 0%,#2dd4bf 100%);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--tx);font-family:"PingFang SC","Microsoft YaHei",system-ui,-apple-system,sans-serif;line-height:1.75;font-size:15px;
+    background-image:radial-gradient(circle at 20% 10%,rgba(77,163,255,.06) 0%,transparent 50%),radial-gradient(circle at 80% 80%,rgba(45,212,191,.04) 0%,transparent 50%);}
+  .wrap{max-width:1000px;margin:0 auto;padding:40px 24px 60px}
+  a{color:var(--blue);text-decoration:none} a:hover{text-decoration:underline}
+
+  /* hero */
+  .hero{text-align:center;margin-bottom:40px;position:relative}
+  .hero .logo{display:inline-flex;align-items:center;gap:10px;margin-bottom:14px}
+  .hero .logo-icon{width:40px;height:40px;border-radius:12px;background:var(--grad1);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:#06101f}
+  .hero .brand{font-size:18px;font-weight:700;color:var(--tx2)}
+  .hero h1{font-size:28px;font-weight:800;line-height:1.4;
+    background:linear-gradient(135deg,#eaf0fb 0%,#4da3ff 60%,#2dd4bf 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .hero .sub{color:var(--tx2);margin-top:8px;font-size:15px}
+
+  /* meta bar */
+  .meta-bar{display:inline-flex;align-items:center;gap:14px;margin-top:16px;font-size:12.5px;color:var(--tx3);background:var(--bg2);border:1px solid var(--line);border-radius:999px;padding:6px 18px}
+  .meta-bar b{color:var(--teal)}
+
+  /* section label */
+  .sec-label{font-size:11px;letter-spacing:2px;color:var(--tx3);margin-bottom:12px;font-weight:600}
+
+  /* card */
+  .card{background:var(--bg2);border:1px solid var(--line);border-radius:16px;padding:24px 26px;margin-bottom:20px}
+  .card h2{font-size:17px;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+  .card p{color:var(--tx2);font-size:14px;line-height:1.8}
+  .card .pill{display:inline-block;font-size:11px;border-radius:5px;padding:2px 8px;font-weight:600;margin-left:6px;background:rgba(77,163,255,.15);color:var(--blue)}
+  .card .pill.teal{background:rgba(45,212,191,.12);color:var(--teal)}
+  .card .pill.amber{background:rgba(245,181,68,.15);color:var(--amber)}
+
+  /* highlight row */
+  .hl-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:20px 0}
+  .hl-item{background:var(--bg3);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+  .hl-item .v{font-size:24px;font-weight:800;color:var(--teal);line-height:1.2}
+  .hl-item .v.blue{color:var(--blue)}
+  .hl-item .v.amber{color:var(--amber)}
+  .hl-item .l{font-size:12.5px;color:var(--tx3);margin-top:4px}
+  .hl-item .s{font-size:11.5px;color:var(--tx3);margin-top:6px;line-height:1.5}
+
+  /* divider */
+  .divider{border:none;border-top:1px solid var(--line);margin:28px 0}
+
+  /* CTA */
+  .cta-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:8px}
+  .cta{background:var(--bg3);border:1px solid var(--line);border-radius:14px;padding:20px 22px;text-decoration:none;color:inherit;display:block;transition:border-color .2s,transform .15s}
+  .cta:hover{border-color:var(--blue);transform:translateY(-2px);text-decoration:none}
+  .cta h3{font-size:15px;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+  .cta p{font-size:13px;color:var(--tx3);line-height:1.6}
+  .cta .tag{font-size:11px;color:var(--teal);background:rgba(45,212,191,.1);border:1px solid rgba(45,212,191,.2);border-radius:6px;padding:2px 8px;margin-left:auto}
+
+  /* footer */
+  .footer{text-align:center;margin-top:40px;padding-top:20px;border-top:1px solid var(--line);color:var(--tx3);font-size:12px;line-height:2}
+  .footer a{color:var(--blue)}
+
+  @media(max-width:600px){
+    .wrap{padding:28px 16px 40px}
+    .hero h1{font-size:22px}
+    .card{padding:18px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="logo">
+      <div class="logo-icon">N</div>
+      <span class="brand">Nova Nexus · 星海智能</span>
+    </div>
+    <h1>AI 模型定价洞察</h1>
+    <div class="sub">OpenRouter 实时混合价 · Artificial Analysis 智能指数 · SuperCLUE 中文评测 · 订阅方案全景</div>
+    <div class="meta-bar">
+      <span class="dot" style="width:7px;height:7px;border-radius:50%;background:var(--green);display:inline-block"></span>
+      数据来源：<b id="dsMeta">加载中…</b>
+    </div>
+  </div>
+
+  <p style="color:var(--tx2);font-size:14px;text-align:center;max-width:640px;margin:0 auto 28px;line-height:1.9">
+    Nova Nexus 提供多模型统一 API（OpenAI 兼容），覆盖对话、视频、图片、语音 4 大类共 94 款模型。
+    定价机制与 OpenRouter 等聚合网关不同：Nova Nexus 以 ⚡（算力点）计价，按次/张计费，
+    更适合多模态生成场景。以下为公共维度价格参考，帮助开发者评估选型成本。
+  </p>
+
+  <div class="sec-label">数据概览</div>
+  <div class="hl-row" id="hlRow">
+    <div class="hl-item"><div class="v blue" id="hl1">—</div><div class="l">追踪模型数</div><div class="s">来自 OpenRouter 实时目录</div></div>
+    <div class="hl-item"><div class="v" id="hl2">—</div><div class="l">厂商数量</div><div class="s">Anthropic / OpenAI / Google / DeepSeek / Qwen / …</div></div>
+    <div class="hl-item"><div class="v amber" id="hl3">—</div><div class="l">订阅方案覆盖</div><div class="s">ChatGPT / Claude / Gemini 等主流服务</div></div>
+    <div class="hl-item"><div class="v" id="hl4">—</div><div class="l">汇率 USD/CNY</div><div class="s" id="hl4s">—</div></div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="sec-label">数据维度说明</div>
+  <div class="card">
+    <h2>OpenRouter 混合价 <span class="pill">$/M token</span></h2>
+    <p>OpenRouter 将各模型输入/输出价加权平均后给出一个「混合价」，模拟真实 3:1 输入输出比（每百万 token 计价）。这是目前行业内最接近实时市场价的公开口径。</p>
+  </div>
+  <div class="card">
+    <h2>Artificial Analysis 智能指数 <span class="pill teal">国际基准</span></h2>
+    <p>AA 智能指数是对模型综合能力（推理、代码、指令遵循等）的量化评分，由 Artificial Analysis 平台独立评测并发布，是国际化选型的常用参考。</p>
+  </div>
+  <div class="card">
+    <h2>SuperCLUE 中文评测 <span class="pill amber">中文基准</span></h2>
+    <p>SuperCLUE 是国内最大的中文大模型评测平台，覆盖数学、代码、知识、Agent 等多维度指标，更贴合中文使用场景的选型评估。</p>
+  </div>
+  <div class="card">
+    <h2>Nova Nexus ⚡计价说明</h2>
+    <p>Nova Nexus 不提供 ⚡ 与 $ 的固定换算关系，因为两者计价体系不同：⚡ 按生成质量动态核算，适合视频/图片/语音等多模态场景；$/M token 仅适用于文本对话模型。如需了解 Nova Nexus 实际对外报价，可访问 <a href="../price/index.html">Nova Nexus 价格对比页</a>。</p>
+  </div>
+
+  <hr class="divider">
+
+  <div class="sec-label">打开分析工具</div>
+  <div class="cta-grid">
+    <a class="cta" href="公开对比.html">
+      <h3>📊 价格 × 性能 全景图表</h3>
+      <p>帕累托前沿图、性价比榜、双基准交叉、厂商对比、订阅方案卡片、热门模型报价表，一屏看完市场全貌。</p>
+      <span class="tag">推荐</span>
+    </a>
+    <a class="cta" href="https://li589.github.io/nova-nexus/price/" target="_blank">
+      <h3>💰 Nova Nexus 官方价格对比</h3>
+      <p>94 款模型价格表，Nova Nexus 对外价 vs OpenRouter 公开价，搜索 + 分类筛选 + 排序，可直接截图分享。</p>
+      <span class="tag">实时</span>
+    </a>
+    <a class="cta" href="../">
+      <h3>🏠 Nova Nexus 星海智能主页</h3>
+      <p>了解 Nova Nexus 多模型统一 API 与 AI 短剧网页工作台两大核心能力。</p>
+      <span class="tag">首页</span>
+    </a>
+  </div>
+
+  <div class="footer">
+    价格与性能数据均来自公开渠道，仅供参考，实际以官方为准。<br>
+    © Nova Nexus 星海智能 · <span id="genTime">—</span>
+  </div>
+</div>
+
+<script src="assets/chart.umd.min.js"></script>
+<script src="data/dashboard.js"></script>
+<script>
+(function(){
+  var D = window.__AIP__;
+  if(!D){
+    document.getElementById('dsMeta').textContent = '数据加载中，请稍候…';
+    return;
+  }
+  var M = D.meta;
+  document.getElementById('dsMeta').innerHTML =
+    M.date + ' · ' + M.generated_at + ' · 汇率 ' + (M.fx||'—');
+  document.getElementById('genTime').textContent = M.generated_at;
+  document.getElementById('hl1').textContent = (D.gateway||[]).length;
+  document.getElementById('hl2').textContent = (D.vendor_stats||[]).length;
+  document.getElementById('hl3').textContent = (D.subs||[]).length;
+  var fx = M.fx||7.1;
+  document.getElementById('hl4').textContent = fx.toFixed(3);
+  document.getElementById('hl4s').textContent = '每 $1 ≈ ¥' + fx.toFixed(2);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 模型价格与性能全景看板 · Nova Nexus 星海智能</title>
+<style>
+  :root{
+    --bg:#0a0e1a; --bg2:#0f1626; --bg3:#162038; --bg4:#1e2d4a;
+    --line:#1e2d4a; --line2:#2a3f5f;
+    --tx:#eaf0fb; --tx2:#a0b0c8; --tx3:#6a7a92;
+    --blue:#4da3ff; --teal:#2dd4bf; --amber:#f5b544; --red:#ff6b6b; --green:#4ade80; --purple:#a78bfa; --pink:#f472b6;
+    --grad1:linear-gradient(135deg,#4da3ff 0%,#2dd4bf 100%);
+    --grad2:linear-gradient(135deg,#a78bfa 0%,#f472b6 100%);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--tx);font-family:"PingFang SC","Microsoft YaHei",system-ui,-apple-system,sans-serif;line-height:1.75;font-size:14px;
+    background-image:radial-gradient(circle at 20% 10%,rgba(77,163,255,.06) 0%,transparent 40%),radial-gradient(circle at 80% 80%,rgba(45,212,191,.05) 0%,transparent 40%);}
+  .wrap{max-width:1200px;margin:0 auto;padding:36px 24px 60px}
+
+  /* 品牌头部 */
+  .hero{text-align:center;margin-bottom:36px;position:relative}
+  .hero .logo{display:inline-flex;align-items:center;gap:10px;margin-bottom:14px}
+  .hero .logo-icon{width:40px;height:40px;border-radius:12px;background:var(--grad1);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#06101f}
+  .hero .brand{font-size:22px;font-weight:700;letter-spacing:1px}
+  .hero h1{font-size:30px;font-weight:800;letter-spacing:.5px;line-height:1.4;background:linear-gradient(135deg,#eaf0fb 0%,#4da3ff 60%,#2dd4bf 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .hero .sub{color:var(--tx2);margin-top:10px;font-size:15px}
+  .hero .update{display:inline-flex;align-items:center;gap:8px;margin-top:14px;font-size:12px;color:var(--tx3);background:var(--bg2);border:1px solid var(--line);border-radius:999px;padding:5px 16px}
+  .hero .update b{color:var(--teal)}
+  .hero .dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+  /* KPI */
+  .kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:28px}
+  .kpi-card{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:18px 20px;position:relative;overflow:hidden;transition:transform .2s,border-color .2s}
+  .kpi-card:hover{transform:translateY(-2px);border-color:var(--blue)}
+  .kpi-card::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad1);opacity:0;transition:opacity .2s}
+  .kpi-card:hover::before{opacity:1}
+  .kpi-card .v{font-size:26px;font-weight:800;line-height:1.2}
+  .kpi-card .v small{font-size:13px;font-weight:400;color:var(--tx2)}
+  .kpi-card .l{font-size:13px;color:var(--tx2);margin-top:4px}
+  .kpi-card .s{font-size:11.5px;color:var(--tx3);margin-top:3px;line-height:1.4}
+
+  /* 模块卡片 */
+  .card{background:var(--bg2);border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin-bottom:20px;position:relative}
+  .card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+  .card-head h2{font-size:18px;font-weight:700;display:flex;align-items:center;gap:8px}
+  .card-head h2 .ico{width:28px;height:28px;border-radius:8px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:15px}
+  .card-head .tag{font-size:11px;color:var(--tx3);background:var(--bg3);border:1px solid var(--line);border-radius:6px;padding:2px 10px;white-space:nowrap}
+  .card-head .hint{font-size:12.5px;color:var(--tx3);max-width:480px;line-height:1.6}
+  .chartbox{position:relative;height:360px}
+  .chartbox.sm{height:280px}
+  .chartbox.tall{height:440px}
+
+  /* 表格 */
+  .tblwrap{overflow:auto;max-height:420px;border-radius:10px;border:1px solid var(--line)}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th{position:sticky;top:0;background:var(--bg3);color:var(--tx);text-align:left;padding:10px 14px;font-weight:600;white-space:nowrap;border-bottom:1px solid var(--line2);z-index:2}
+  td{padding:9px 14px;border-bottom:1px solid rgba(30,45,74,.5);color:var(--tx2);white-space:nowrap}
+  tr:hover td{background:rgba(77,163,255,.04)}
+  td.name{color:var(--tx);font-weight:500;white-space:normal;min-width:160px}
+  td.num{text-align:right;font-variant-numeric:tabular-nums;font-family:Consolas,Menlo,monospace}
+  .pill{display:inline-block;font-size:11px;border-radius:5px;padding:1px 7px;font-weight:600;margin-right:4px}
+  .p-green{background:rgba(74,222,128,.15);color:var(--green)}
+  .p-red{background:rgba(255,107,107,.15);color:var(--red)}
+  .p-blue{background:rgba(77,163,255,.15);color:var(--blue)}
+  .p-teal{background:rgba(45,212,191,.15);color:var(--teal)}
+  .p-amber{background:rgba(245,181,68,.15);color:var(--amber)}
+  .p-purple{background:rgba(167,139,250,.15);color:var(--purple)}
+  .p-grey{background:rgba(160,176,200,.12);color:var(--tx2)}
+  .mini{height:6px;background:var(--bg4);border-radius:3px;overflow:hidden;min-width:50px;display:inline-block;vertical-align:middle}
+  .mini i{display:block;height:100%;background:var(--teal);border-radius:3px}
+
+  /* 订阅卡片 */
+  .plans{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+  .plan{background:var(--bg3);border:1px solid var(--line);border-radius:12px;padding:16px 18px;transition:transform .15s,border-color .15s}
+  .plan:hover{transform:translateY(-2px);border-color:var(--blue)}
+  .plan .pn{font-size:14px;font-weight:600;margin-bottom:2px}
+  .plan .pv{font-size:24px;font-weight:800;margin:8px 0 2px}
+  .plan .pv small{font-size:12px;color:var(--tx3);font-weight:400}
+  .plan .pm{font-size:11.5px;color:var(--tx3);margin-top:6px;line-height:1.5;white-space:normal}
+  .plan.free{border-left:3px solid var(--tx3)}
+  .plan.cheap{border-left:3px solid var(--green)}
+  .plan.mid{border-left:3px solid var(--blue)}
+  .plan.high{border-left:3px solid var(--amber)}
+  .plan.top{border-left:3px solid var(--red)}
+
+  /* 品牌底栏 */
+  .footer{text-align:center;margin-top:40px;padding-top:24px;border-top:1px solid var(--line);color:var(--tx3);font-size:12.5px;line-height:2}
+  .footer .brand-line{display:inline-flex;align-items:center;gap:8px;margin-bottom:8px}
+  .footer .brand-line .logo-icon{width:24px;height:24px;border-radius:7px;background:var(--grad1);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#06101f}
+  .footer a{color:var(--blue);text-decoration:none}
+
+  /* 分享提示 */
+  .share-note{text-align:center;font-size:12px;color:var(--tx3);margin-top:16px;padding:10px 16px;background:rgba(45,212,191,.05);border:1px solid rgba(45,212,191,.2);border-radius:10px}
+
+  /* 响应式 */
+  @media(max-width:640px){
+    .wrap{padding:24px 16px 40px}
+    .hero h1{font-size:22px}
+    .kpi-card .v{font-size:22px}
+    .card{padding:18px 16px}
+    .chartbox{height:300px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- 品牌头部 -->
+  <div class="hero">
+    <div class="logo">
+      <div class="logo-icon">N</div>
+      <span class="brand">Nova Nexus · 星海智能</span>
+    </div>
+    <h1>AI 模型价格洞察</h1>
+    <div class="sub">OpenRouter 混合价 · Artificial Analysis 智能指数 · SuperCLUE 中文评测 · 主流订阅方案</div>
+    <div class="update">
+      <span class="dot"></span>
+      数据更新于 <b id="updateTime">—</b> · 汇率 USD/CNY <b id="fxVal">—</b> · 采集源：OpenRouter / AI Pricing Guru / Artificial Analysis / SuperCLUE
+    </div>
+  </div>
+
+  <!-- KPI -->
+  <div class="kpi-row" id="kpi"></div>
+
+  <!-- 1 帕累托前沿（最适合分享的图） -->
+  <div class="card">
+    <div class="card-head">
+      <h2><span class="ico">📊</span> 价格 × 性能 全景图</h2>
+      <span class="tag">核心图表</span>
+    </div>
+    <div class="hint" style="font-size:12.5px;color:var(--tx3);margin-bottom:14px">
+      每个点是一个 AI 模型。横轴=混合价（美元/百万 token，对数刻度），纵轴=智能指数。<b style="color:var(--amber)">黄色阶梯线</b>为帕累托前沿——线上每个点都是该价位段找不到「更便宜且更聪明」替代品的最优解。
+    </div>
+    <div class="chartbox tall"><canvas id="cScatter"></canvas></div>
+  </div>
+
+  <!-- 2 性价比榜 -->
+  <div class="card">
+    <div class="card-head">
+      <h2><span class="ico">💰</span> 性价比排行榜 Top 20</h2>
+      <span class="tag">智能 ≥ 40</span>
+    </div>
+    <div class="hint" style="font-size:12.5px;color:var(--tx3);margin-bottom:14px">
+      性价比 = 智能指数 ÷ 混合价。已过滤掉智能过低的模型，避免「又笨又便宜」的小模型霸榜。
+    </div>
+    <div class="chartbox"><canvas id="cValue"></canvas></div>
+  </div>
+
+  <!-- 3 双基准交叉 -->
+  <div class="card">
+    <div class="card-head">
+      <h2><span class="ico">🔍</span> 双基准交叉：国际评测 × 中文评测</h2>
+      <span class="tag">AA × SuperCLUE</span>
+    </div>
+    <div class="hint" style="font-size:12.5px;color:var(--tx3);margin-bottom:14px">
+      横轴=Artificial Analysis 智能指数（海外评测视角），纵轴=SuperCLUE 总分（中文场景视角）。偏离对角线的模型，两套评测体系的评价有分歧——这是选型时最值得关注的信号。
+    </div>
+    <div class="chartbox"><canvas id="cDual"></canvas></div>
+  </div>
+
+  <!-- 4 厂商对比 -->
+  <div class="card">
+    <div class="card-head">
+      <h2><span class="ico">🏭</span> 各厂商价格与性能对比</h2>
+    </div>
+    <div class="hint" style="font-size:12.5px;color:var(--tx3);margin-bottom:14px">
+      柱=该厂商模型混合价中位数（对数刻度），线=其最强模型智能指数。
+    </div>
+    <div class="chartbox sm"><canvas id="cVendor"></canvas></div>
+  </div>
+
+  <!-- 5 订阅方案 -->
+  <div class="card">
+    <div class="card-head">
+      <h2><span class="ico">💳</span> 主流 AI 订阅方案对比</h2>
+      <span class="tag" id="subCount">—</span>
+    </div>
+    <div class="hint" style="font-size:12.5px;color:var(--tx3);margin-bottom:14px">
+      面向个人/团队的包月方案。和 API 按量计费是两套账：订阅买的是「额度上限 + 客户端」，API 买的是 token。
+    </div>
+    <div class="plans" id="planGrid"></div>
+  </div>
+
+  <!-- 6 热门模型报价表 -->
+  <div class="card">
+    <div class="card-head">
+      <h2><span class="ico">📋</span> 热门模型报价一览</h2>
+      <span class="tag" id="mdCount">—</span>
+    </div>
+    <div class="hint" style="font-size:12.5px;color:var(--tx3);margin-bottom:14px">
+      混合价 = (输入×3 + 输出) ÷ 4，模拟真实 3:1 输入输出比。网关价取 OpenRouter 最便宜路由，部分含 Flex/Batch 折扣档。
+    </div>
+    <div class="tblwrap"><table id="tModels"></table></div>
+  </div>
+
+  <!-- 定价说明 -->
+  <div class="card" style="background:var(--bg3)">
+    <div class="card-head">
+      <h2><span class="ico">📌</span> 定价口径说明</h2>
+    </div>
+    <div class="hint" style="margin-bottom:0">
+      本页展示的 OpenRouter 混合价为「按百万 token」计费（$ / M token），Nova Nexus ⚡价则按次/张计费，两者计价方式不同，不可直接换算。
+      Nova Nexus 的优势在于多模态生成模型覆盖（视频/图片/语音）远超 OpenRouter，后者以文本对话模型为主。
+      本文档中的价格数据为公开标准报价，不含分销折扣。如需了解 Nova Nexus 对外价，请参考 <a href="../price/index.html">Nova Nexus 官方价格页</a>。
+    </div>
+  </div>
+  <div class="share-note">
+    所有数据均来自公开渠道（OpenRouter 官方 API、各厂商官方定价页、Artificial Analysis 与 SuperCLUE 第三方评测）。价格与性能数据仅供参考，实际以官方为准。本页面仅供 Nova Nexus 开发者与决策者查阅使用。<br>
+    <a href="pricing.html" style="margin-top:8px;display:inline-block">← 返回定价洞察入口</a>
+  </div>
+
+  <!-- 品牌底栏 -->
+  <div class="footer">
+    <div class="brand-line">
+      <div class="logo-icon">N</div>
+      <b style="color:var(--tx2)">Nova Nexus · 星海智能</b>
+    </div>
+    <div>
+      价格数据：
+      <a href="https://openrouter.ai/api/v1/models" target="_blank">OpenRouter</a> ·
+      <a href="https://www.aipricing.guru/pricing/" target="_blank">AI Pricing Guru</a> ·
+      <a href="https://open.er-api.com" target="_blank">汇率 API</a>
+    </div>
+    <div>
+      性能指数：Artificial Analysis（国际） / SuperCLUE（中文）· 独立第三方评测<br>
+      定价口径以公开标准价为准，不包含分销折扣或内部定价。<br>
+      © Nova Nexus 星海智能 · <span id="genTime">—</span>
+    </div>
+  </div>
+</div>
+
+<script src="assets/chart.umd.min.js"></script>
+<script src="data/dashboard.js"></script>
+<script>
+(function(){
+'use strict';
+var D = window.__AIP__;
+if(!D){ document.body.innerHTML = '<div style="text-align:center;padding:60px;color:#ff6b6b">未找到数据，请先运行 collect.py</div>'; return; }
+var M = D.meta, FX = M.fx || 7.1;
+
+document.getElementById('updateTime').textContent = M.date;
+document.getElementById('fxVal').textContent = FX;
+document.getElementById('genTime').textContent = M.generated_at;
+
+Chart.defaults.color = '#a0b0c8';
+Chart.defaults.borderColor = 'rgba(30,45,74,.8)';
+Chart.defaults.font.family = 'PingFang SC, Microsoft YaHei, system-ui';
+
+var COLORS = ['#4da3ff','#2dd4bf','#f5b544','#a78bfa','#f472b6','#4ade80','#ff6b6b','#60a5fa','#fbbf24','#34d399','#c084fc','#fb7185','#38bdf8','#a3e635'];
+var vc = {}; (D.vendor_stats||[]).forEach(function(v,i){ vc[v.vendor] = COLORS[i % COLORS.length]; });
+function vcol(v){ return vc[v] || '#6a7a92'; }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+function num(v,d){ return v==null?'—':Number(v).toFixed(d==null?1:d); }
+function money(v){ if(v==null) return '—'; return '$'+Number(v).toFixed(v>=100?1:v>=1?2:v>=0.01?3:4); }
+function ctx(v){ if(!v) return '—'; return v>=1000000 ? (v/1000000)+'M' : v>=1000 ? Math.round(v/1000)+'K' : v; }
+
+/* ---- 帕累托 ---- */
+var benched = (D.gateway||[]).filter(function(m){ return m.intel!=null && m.blended!=null && m.blended>0; });
+var paretoSet = {};
+(function(){ var s=benched.slice().sort(function(a,b){return a.blended-b.blended;}); var best=-1; s.forEach(function(m){ if(m.intel>best){best=m.intel;paretoSet[m.id]=true;} }); })();
+var paretoList = benched.filter(function(m){return paretoSet[m.id];}).sort(function(a,b){return a.blended-b.blended;});
+
+var pts = {}, list = benched;
+list.forEach(function(m){ var v=m.vendor||'其他'; (pts[v]=pts[v]||[]).push({x:m.blended,y:m.intel,m:m}); });
+var top = Object.keys(pts).sort(function(a,b){return pts[b].length-pts[a].length;}).slice(0,10);
+var ds = top.map(function(v){ return {label:v, data:pts[v], backgroundColor:vcol(v)+'cc', pointRadius:5, pointHoverRadius:8}; });
+ds.push({label:'帕累托前沿', type:'line', data:paretoList.map(function(m){return {x:m.blended,y:m.intel,m:m};}),
+  borderColor:'#f5b544', backgroundColor:'#f5b544', borderWidth:2.5, pointRadius:4, stepped:'after', fill:false, order:-1});
+new Chart(document.getElementById('cScatter'), {
+  type:'scatter', data:{datasets:ds},
+  options:{maintainAspectRatio:false,
+    scales:{x:{type:'logarithmic', title:{display:true,text:'混合价（美元 / 百万 token，对数）'}, grid:{color:'rgba(30,45,74,.5)'}},
+            y:{title:{display:true,text:'智能指数（Artificial Analysis）'}, min:0, grid:{color:'rgba(30,45,74,.5)'}}},
+    plugins:{legend:{position:'bottom', labels:{boxWidth:10, boxHeight:10, padding:8, font:{size:11}}},
+      tooltip:{callbacks:{label:function(c){ var m=c.raw.m; if(!m)return ''; return [m.name, '混合价 '+money(m.blended)+'/M（入 '+money(m.in)+' / 出 '+money(m.out)+'）', '智能 '+num(m.intel)+' · 编码 '+num(m.coding)+' · Agent '+num(m.agentic), '性价比 '+(m.value||'—')]; }}}}}
+});
+
+/* ---- 性价比榜 ---- */
+var val = benched.filter(function(m){return m.intel>=40 && m.value;}).sort(function(a,b){return b.value-a.value;}).slice(0,20);
+new Chart(document.getElementById('cValue'), {
+  type:'bar',
+  data:{labels: val.map(function(m){return m.name.replace(/^[^:]+:\s*/,'');}),
+    datasets:[{label:'性价比（智能 ÷ 混合价）', data: val.map(function(m){return m.value;}),
+      backgroundColor: val.map(function(m){return vcol(m.vendor)+'dd';}), borderRadius:5}]},
+  options:{maintainAspectRatio:false, indexAxis:'y',
+    scales:{x:{type:'logarithmic', title:{display:true,text:'性价比（对数）'}}, y:{ticks:{font:{size:11}}}},
+    plugins:{legend:{display:false}, tooltip:{callbacks:{afterLabel:function(c){ var m=val[c.dataIndex]; return ['智能 '+num(m.intel)+' · 混合价 '+money(m.blended)+'/M', m.vendor]; }}}}}
+});
+
+/* ---- 双基准 ---- */
+var dual = (D.dual||[]).filter(function(m){return m.intel!=null && m.sc_score!=null;});
+new Chart(document.getElementById('cDual'), {
+  type:'scatter',
+  data:{datasets:[{label:'模型', data: dual.map(function(m){return {x:m.intel,y:m.sc_score,m:m};}),
+    backgroundColor: dual.map(function(m){return vcol(m.vendor)+'cc';}), pointRadius:7, pointHoverRadius:10}]},
+  options:{maintainAspectRatio:false,
+    scales:{x:{title:{display:true,text:'Artificial Analysis 智能指数（海外评测）'}, min:25, max:60, grid:{color:'rgba(30,45,74,.5)'}},
+            y:{title:{display:true,text:'SuperCLUE 总分（中文场景评测）'}, min:45, max:80, grid:{color:'rgba(30,45,74,.5)'}}},
+    plugins:{legend:{display:false}, tooltip:{callbacks:{label:function(c){ var m=c.raw.m; return [m.name, 'AA '+m.intel+' · SC '+m.sc_score, '混合价 '+money(m.blended)+'/M · '+m.vendor]; }}}}}
+});
+
+/* ---- 厂商对比 ---- */
+var vs = (D.vendor_stats||[]).filter(function(v){return v.median_blended!=null;}).sort(function(a,b){return b.count-a.count;}).slice(0,12);
+new Chart(document.getElementById('cVendor'), {
+  data:{labels: vs.map(function(v){return v.vendor;}),
+    datasets:[
+      {type:'bar', label:'混合价中位数 $/M', data: vs.map(function(v){return v.median_blended;}),
+       backgroundColor: vs.map(function(v){return vcol(v.vendor)+'cc';}), yAxisID:'y', borderRadius:4},
+      {type:'line', label:'最强智能指数', data: vs.map(function(v){return v.best_intel;}),
+       borderColor:'#f5b544', backgroundColor:'#f5b544', yAxisID:'y1', pointRadius:4, borderWidth:2, tension:.3, spanGaps:true}
+    ]},
+  options:{maintainAspectRatio:false,
+    scales:{y:{type:'logarithmic', position:'left', title:{display:true,text:'$/M（对数）'}},
+            y1:{position:'right', grid:{drawOnChartArea:false}, title:{display:true,text:'智能指数'}},
+            x:{ticks:{maxRotation:45, minRotation:30, font:{size:10}}}},
+    plugins:{legend:{labels:{boxWidth:10, font:{size:11}}}}}
+});
+
+/* ---- KPI ---- */
+var g = D.gateway||[], fr = D.frontier||{};
+var bl = g.filter(function(m){return m.blended;}).map(function(m){return m.blended;}).sort(function(a,b){return a-b;});
+var med = bl.length ? bl[Math.floor(bl.length/2)] : 0;
+var topM = benched.slice().sort(function(a,b){return b.intel-a.intel;})[0];
+var cheap50 = (D.dual||[]).filter(function(m){return m.sc_score>=60;}).sort(function(a,b){return a.blended-b.blended;})[0];
+document.getElementById('kpi').innerHTML = [
+  ['<span style="color:var(--blue)">'+g.length+'</span>','在追踪模型', (D.vendor_stats||[]).length+' 家厂商 · '+benched.length+' 个有评测分'],
+  ['<span style="color:var(--teal)">'+money(fr['50']?fr['50'].price:null)+'</span>','智能≥50 最低价', fr['50']?fr['50'].model:'—'],
+  ['<span style="color:var(--amber)">'+money(fr['60']?fr['60'].price:null)+'</span>','智能≥60 最低价', fr['60']?fr['60'].model:'—'],
+  [topM? '<span style="color:var(--purple)">'+num(topM.intel)+'</span>':'—','当前最强智能', topM? topM.name+' · '+money(topM.blended)+'/M':''],
+  ['<span style="color:var(--green)">'+money(med)+'</span>','全市场混合价中位数', '≈ ¥'+(med*FX).toFixed(2)+'/百万 token'],
+  ['<span style="color:var(--pink)">'+(D.subs||[]).length+'</span>','主流订阅方案', '覆盖 '+Object.keys((D.subs||[]).reduce(function(a,s){a[s.vendor]=1;return a;},{})).length+' 家']
+].map(function(k){ return '<div class="kpi-card"><div class="v">'+k[0]+'</div><div class="l">'+k[1]+'</div><div class="s">'+esc(k[2])+'</div></div>'; }).join('');
+
+/* ---- 订阅 ---- */
+var subs = (D.subs||[]).filter(function(s){return s.monthly && s.monthly>=15;}).sort(function(a,b){return a.monthly-b.monthly;});
+document.getElementById('subCount').textContent = subs.length+' 个方案';
+function pcls(p){ return !p?'free':p<15?'cheap':p<50?'mid':p<150?'high':'top'; }
+document.getElementById('planGrid').innerHTML = subs.map(function(s){
+  var p = s.monthly;
+  return '<div class="plan '+pcls(p)+'">'+
+    '<div class="pn">'+esc(s.name)+'</div>'+
+    '<div class="muted" style="font-size:11.5px">'+esc(s.vendor)+' · '+esc(s.tier||'')+'</div>'+
+    '<div class="pv">$'+p+'<small> /月</small></div>'+
+    '<div class="muted" style="font-size:11.5px">≈ ¥'+Math.round(p*FX)+' /月</div>'+
+    ((s.models||[]).length? '<div class="pm"><b style="color:var(--tx2)">含：</b>'+esc(s.models.join(' / '))+'</div>':'')+
+    '</div>';
+}).join('');
+
+/* ---- 热门模型表 ---- */
+var hot = benched.filter(function(m){return m.intel>=35;}).sort(function(a,b){return b.intel-a.intel;}).slice(0,30);
+document.getElementById('mdCount').textContent = hot.length+' 个热门模型';
+var cols = [
+  {t:'模型', r:function(r){ return '<td class="name">'+esc(r.name)+(r.reasoning?' <span class="pill p-purple">推理</span>':'')+(paretoSet[r.id]?' <span class="pill p-amber">最优</span>':'')+'</td>'; }},
+  {t:'厂商', r:function(r){ return '<td><span style="color:'+vcol(r.vendor)+'">'+esc(r.vendor)+'</span></td>'; }},
+  {t:'输入 $/M', n:1, r:function(r){ return '<td class="num">'+money(r.in)+'</td>'; }},
+  {t:'输出 $/M', n:1, r:function(r){ return '<td class="num">'+money(r.out)+'</td>'; }},
+  {t:'混合价', n:1, r:function(r){ return '<td class="num"><b style="color:var(--tx)">'+money(r.blended)+'</b></td>'; }},
+  {t:'智能', n:1, r:function(r){ return '<td class="num">'+(r.intel==null?'—':'<span class="mini"><i style="width:'+Math.min(100,r.intel/61*100)+'%"></i></span> <b>'+num(r.intel)+'</b>')+'</td>'; }},
+  {t:'SC中文', n:1, r:function(r){ return '<td class="num">'+(r.sc_score==null?'—':'<span style="color:var(--pink)">'+num(r.sc_score)+'</span>')+'</td>'; }},
+  {t:'上下文', r:function(r){ return '<td class="num">'+ctx(r.ctx)+'</td>'; }}
+];
+document.getElementById('tModels').innerHTML = '<thead><tr>'+cols.map(function(c){return '<th'+(c.n?' style="text-align:right"':'')+'>'+c.t+'</th>';}).join('')+'</tr></thead><tbody>'+
+  hot.map(function(r){ return '<tr>'+cols.map(function(c){return c.r(r);}).join('')+'</tr>'; }).join('')+'</tbody>';
+})();
+</script>
+</body>
+</html>
