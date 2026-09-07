@@ -158,8 +158,8 @@
       <a href="../docs/models.html">模型覆盖</a>
       <a href="../docs/api.html">API 文档</a>
       <a class="sn-hot" href="index.html">价格表 ¥</a>
-      <a href="对外价目表.html">对外价目表</a>
-      <a href="../docs/pricing.html">定价洞察</a>
+      <a href="价目表.html">价目表</a>
+      <a href="../docs/pricing.html">选型参考</a>
       <a class="snoff" href="https://dolphin.token6688.com/" target="_blank" rel="noopener">官网 ↗</a>
     </div>
   </div>
@@ -168,35 +168,35 @@
 <div class="wrap">
   <header>
     <div class="logo"><span class="star">✦</span> Nova Nexus 星海智能</div>
-    <div class="tag">一个 API · 调遍全球主流大模型与多模态生成 · 全部人民币统一计价</div>
+    <div class="tag">一个 API 调用全球主流大模型与多模态生成 · 价格统一按人民币（¥）标</div>
     <div class="upd" id="upd"></div>
   </header>
 
   <div class="hook">
-    💰 价格展示<b>统一为人民币（¥）</b>：对话模型按「每百万 token 输出价」、生成模型按「每次 / 每秒 / 每张」计费，
-    均为<b>对外客户价</b>，可对照「<a href="对外价目表.html" target="_blank" rel="noopener">倍率 / 省 X%</a>」直观了解相对官方公开价省多少。
+    💰 这里的价格统一用<b>人民币（¥）</b>标：对话按每百万 token、生成按每次 / 每秒 / 每张收费。
+    每款标价的同时也给出相对官方公开价的「<a href="价目表.html" target="_blank" rel="noopener">倍率 / 省 X%</a>」——官方公开价多少、在这里能便宜多少，一眼看明白。
   </div>
 
   <div class="kpis" id="kpis"></div>
 
   <div class="sec">
     <h2 style="justify-content:center"><span class="em">📊</span> 品类覆盖对比（模型数）</h2>
-    <div class="sub">同为聚合平台，品类结构天差地别。橙色=Nova Nexus，蓝色=OpenRouter（其 4 百款以文本对话为主，生成模型极少）。</div>
+    <div class="sub">同为聚合平台，模型结构差很多：橙色 = Nova Nexus，蓝色 = OpenRouter（它几百款大多是文本对话，生成类很少）。</div>
     <div class="chartbox"><canvas id="cCat"></canvas></div>
-    <div class="note">说明：Nova Nexus 在<b>视频 / 图片 / 音频生成</b>类模型数量上远超 OpenRouter，且覆盖国产独家模型；
-      文本对话同样全覆盖。覆盖图为<b>模型数量</b>对比，与价格无关。</div>
+    <div class="note">视频 / 图片 / 语音这类的生成模型，Nova Nexus 的数量比 OpenRouter 多不少，还带很多国产独家型号；
+      文本对话也照样全覆盖。这个图只比<b>模型数量</b>，不比价格。</div>
   </div>
 
   <div class="sec">
-    <h2 style="justify-content:center"><span class="em">🎬</span> 多模态生成：数量优势</h2>
-    <div class="sub">视频 / 图片 / 语音生成模型数量对比。</div>
+    <h2 style="justify-content:center"><span class="em">🎬</span> 生成类模型：能选的比别家多</h2>
+    <div class="sub">视频、图片、语音生成模型的数量对比。</div>
     <div class="gen" id="gen"></div>
     <div class="chips" id="videoChips"></div>
   </div>
 
   <div class="sec">
-    <h2 style="justify-content:center"><span class="em">🔍</span> 全量模型价格表（人民币）</h2>
-    <div class="sub"><span id="cntAll"></span> 款在售模型 · 支持搜索与分类筛选 · 价格均为对外客户价（¥）</div>
+    <h2 style="justify-content:center"><span class="em">🔍</span> 全部模型价格表</h2>
+    <div class="sub"><span id="cntAll"></span> 款模型 · 支持搜索与分类筛选 · 价格均为人民币（¥）</div>
     <div class="filterbar">
       <input type="text" id="search" placeholder="搜索模型名称…（如 GPT、可灵、Seedance、TTS）">
       <div class="tabs" id="tabs">
@@ -219,7 +219,7 @@
         <thead><tr>
           <th>模型</th>
           <th>分类</th>
-          <th>客户价 (¥)</th>
+          <th>售价 (¥)</th>
           <th>计费方式</th>
           <th>倍率 / 省</th>
         </tr></thead>
@@ -227,22 +227,22 @@
       </table>
     </div>
     <div class="note">
-      倍率 = 本平台客户价 ÷ 官方厂商公开价（USD 按汇率折算为 ¥）；省 X% = (1 − 倍率) × 100%，表示相对官方公开价可省比例，
-      仅供横向参考，<b>不反映任何内部成本或利润</b>。生成类因无官方公开基准，倍率标「—」。
-      价格随市场调整，<b>最终以官网实时报价为准</b>。
+      倍率 = 平台售价 ÷ 官方厂商公开价（美元按汇率折成 ¥）；省 X% = (1 − 倍率) × 100%，就是比官方公开价便宜的比例。
+      生成类模型没有可比的官方公开价，倍率标「—」；新上架且尚未标价的型号，售价与倍率显示「—」。
+      价格会随市场调整，<b>以官网实时报价为准</b>。
     </div>
   </div>
 
   <div class="sec">
-    <h2 style="justify-content:center"><span class="em">🇨🇳</span> 国产模型独家覆盖</h2>
-    <div class="sub">海外聚合平台拿不到的国产旗舰系列，这里一站式直达。</div>
+    <h2 style="justify-content:center"><span class="em">🇨🇳</span> 国产模型，这里更全</h2>
+    <div class="sub">很多海外平台覆盖不到的国产旗舰系列，这里基本都能直接调。</div>
     <div class="chips" id="domChips"></div>
     <div class="note">豆包、可灵、即梦、Seedance、通义 Qwen、Kimi、智谱 GLM、百度、万相、MiniMax、阶跃等国产模型系列齐全。</div>
   </div>
 
   <div class="srcnote">
-    数据来源：Nova Nexus 官方实时目录（分站 ¥ 客户价 2026-09-07 + 分销价导出）· 官方厂商公开价 · SuperCLUE 中文基准。<br>
-    价格为公开对外价，仅供参考，以平台实时报价为准；本页不含任何进货价 / 利润 / 加价率等经营数据。
+    价格数据：Nova Nexus 价格目录（2026-09-07）· 官方厂商公开价 · SuperCLUE 中文基准。<br>
+    价格为公开售价，仅供参考，实际收费以官网实时报价为准。
   </div>
 </div>
 
@@ -250,11 +250,11 @@
   <div class="sfwrap">
     <div class="sflinks">
       <a href="../index.html">品牌首页</a> · <a href="../docs/models.html">模型覆盖</a> · <a href="../docs/api.html">API 文档</a> ·
-      <a href="index.html">价格表 ¥</a> · <a href="对外价目表.html">对外价目表</a> · <a href="../docs/pricing.html">定价洞察</a> ·
+      <a href="index.html">价格表 ¥</a> · <a href="价目表.html">价目表</a> · <a href="../docs/pricing.html">选型参考</a> ·
       <a href="https://dolphin.token6688.com/" target="_blank" rel="noopener">官方网站</a>
     </div>
     <div class="sfcom">
-      本页价格均为<b>对外客户价</b>，与官方公开价对比仅标注「倍率 / 省 X%」；不含任何进货价 / 利润 / 加价率等经营数据，实际以官网实时报价为准。
+      价格仅供参考，最终以官网实时报价为准。
     </div>
     <div class="sfcpr">
       © Nova Nexus 星海智能国际站 · 面向开发者与企业 · 官网
@@ -286,7 +286,7 @@ var CATEMOJI = {chat:"💬", video:"🎬", image:"🖼️", audio:"🎙️"};
 (function(){
   var nn = D.cat_nn||{};
   var kpis = [
-    {n: D.nn_count||0, l:"在售模型总数"},
+    {n: D.nn_count||0, l:"目录收录模型"},
     {n: (nn.video||0), l:"视频生成模型"},
     {n: (nn.image||0)+(nn.audio||0), l:"图片+语音生成"},
     {n: (D.domestic||[]).length, l:"国产系列覆盖"}
