@@ -15,6 +15,36 @@
     color:var(--txt);font-family:-apple-system,"PingFang SC","Microsoft YaHei",Segoe UI,sans-serif;
     line-height:1.6;padding:0 0 60px}
   .wrap{max-width:980px;margin:0 auto;padding:0 18px}
+  /* ===== 全站统一顶栏 ===== */
+  .sitenav{position:sticky;top:0;z-index:60;background:rgba(6,9,20,.84);
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid rgba(40,49,88,.85)}
+  .sitenav .snwrap{max-width:1180px;margin:0 auto;padding:0 18px;display:flex;align-items:center;
+    justify-content:space-between;gap:12px;min-height:58px}
+  .snbrand{display:flex;align-items:center;gap:9px;font-weight:800;font-size:15px;color:#eaf0ff!important;
+    text-decoration:none!important;letter-spacing:.3px;white-space:nowrap}
+  .snbrand:hover{color:#fff!important;text-decoration:none!important}
+  .snlogo{width:26px;height:26px;flex:none}
+  .snlinks{display:flex;align-items:center;gap:2px;flex-wrap:wrap;justify-content:flex-end}
+  .snlinks a{color:#9aa3c9;font-size:13px;font-weight:600;text-decoration:none;padding:6px 10px;
+    border-radius:8px;transition:.15s;white-space:nowrap}
+  .snlinks a:hover{color:#eaf0ff;background:rgba(91,140,255,.14);text-decoration:none}
+  .snlinks a.sn-hot{color:#04122b;background:linear-gradient(92deg,#5b8cff,#22d3ee);border-radius:999px;
+    padding:5px 14px;font-weight:700}
+  .snlinks a.sn-hot:hover{color:#04122b;background:linear-gradient(92deg,#5b8cff,#22d3ee)}
+  .snlinks a.snoff{color:#22d3ee;border:1px solid rgba(34,211,238,.45);border-radius:999px;padding:4px 12px}
+  .snlinks a.snoff:hover{background:rgba(34,211,238,.14);color:#22d3ee}
+  @media(max-width:820px){.sitenav .snwrap{flex-direction:column;padding:10px 12px;gap:8px}
+    .snlinks{justify-content:center}}
+  /* ===== 全站统一页脚 ===== */
+  .sitefoot{border-top:1px solid rgba(40,49,88,.85);padding:30px 18px 46px;color:#9aa3c9;
+    font-size:12.5px;line-height:1.9}
+  .sitefoot .sfwrap{max-width:1180px;margin:0 auto;text-align:center}
+  .sflinks a{color:#22d3ee;text-decoration:none;margin:0 7px;white-space:nowrap}
+  .sflinks a:hover{text-decoration:underline}
+  .sfcom{margin:12px auto 0;color:#8a93b8;font-size:12px;max-width:880px}
+  .sfcpr{margin-top:6px;font-size:11.5px;opacity:.75}
+  .sfcpr a{color:#5b8cff;text-decoration:none}
+  .srcnote{text-align:center;color:var(--mut);font-size:11.5px;margin-top:24px;line-height:1.9}
   /* Header */
   header{padding:40px 18px 20px;text-align:center;
     background:linear-gradient(180deg,rgba(91,140,255,.14),transparent)}
@@ -28,12 +58,7 @@
   .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--grn);
     margin-right:5px;animation:pulse 2s infinite;vertical-align:middle}
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-  /* top nav chips */
-  .topnav{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px}
-  .tn{display:inline-block;padding:8px 16px;border-radius:999px;font-size:13px;font-weight:600;
-    border:1px solid var(--line);background:var(--card);color:var(--txt);text-decoration:none;transition:.18s}
-  .tn:hover{border-color:var(--acc);transform:translateY(-1px);text-decoration:none}
-  .tn.hot{background:linear-gradient(92deg,var(--acc),var(--acc2));border:none;color:#04122b}
+  /* top nav chips (removed — 全站统一顶栏 .sitenav 已接管) */
   /* Hook */
   .hook{margin:20px 0;padding:18px 22px;border-radius:16px;text-align:center;
     background:linear-gradient(135deg,rgba(34,211,238,.10),rgba(91,140,255,.10));
@@ -103,27 +128,48 @@
     color:var(--txt);font-size:12px;outline:none}
   .rescount{font-size:12px;color:var(--mut);margin-top:8px;text-align:center}
   .rescount b{color:var(--acc2)}
-  footer{text-align:center;color:var(--mut);font-size:11.5px;margin-top:26px;line-height:1.9}
-  footer a{color:var(--acc);text-decoration:none}
   @media(max-width:640px){
     .kpis{grid-template-columns:repeat(2,1fr)}
     .gen{grid-template-columns:1fr}
     .logo{font-size:24px}
     .filterbar input{min-width:140px}
   }
+  @media print{.sitenav,.sitefoot{display:none!important}}
 </style>
 </head>
 <body>
+
+<nav class="sitenav" aria-label="全站导航">
+  <div class="snwrap">
+    <a class="snbrand" href="../index.html">
+      <svg class="snlogo" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="24" cy="24" r="5" fill="#5b8cff"/><circle cx="24" cy="24" r="5" fill="#22d3ee" opacity=".5"/>
+        <g stroke="#22d3ee" stroke-width="1.4" opacity=".8">
+          <line x1="24" y1="24" x2="9" y2="12"/><line x1="24" y1="24" x2="40" y2="14"/>
+          <line x1="24" y1="24" x2="42" y2="34"/><line x1="24" y1="24" x2="10" y2="38"/>
+        </g>
+        <g fill="#a78bfa"><circle cx="9" cy="12" r="2.6"/><circle cx="40" cy="14" r="2.6"/>
+          <circle cx="42" cy="34" r="2.6"/><circle cx="10" cy="38" r="2.6"/></g>
+      </svg>
+      <span>Nova Nexus · 星海智能</span>
+    </a>
+    <div class="snlinks">
+      <a href="../index.html">首页</a>
+      <a href="../docs/models.html">模型覆盖</a>
+      <a href="../docs/api.html">API 文档</a>
+      <a class="sn-hot" href="index.html">价格表 ¥</a>
+      <a href="对外价目表.html">对外价目表</a>
+      <a href="../docs/pricing.html">定价洞察</a>
+      <a class="snoff" href="https://dolphin.token6688.com/" target="_blank" rel="noopener">官网 ↗</a>
+    </div>
+  </div>
+</nav>
+
 <div class="wrap">
   <header>
     <div class="logo"><span class="star">✦</span> Nova Nexus 星海智能</div>
     <div class="tag">一个 API · 调遍全球主流大模型与多模态生成 · 全部人民币统一计价</div>
     <div class="upd" id="upd"></div>
-    <div class="topnav">
-      <a class="tn hot" href="对外价目表.html" target="_blank" rel="noopener">📋 对外宣传价目表（分类截图）</a>
-      <a class="tn" href="../index.html" rel="noopener">🏠 GitHub 首页</a>
-      <a class="tn" href="https://dolphin.token6688.com/" target="_blank" rel="noopener">官网 →</a>
-    </div>
   </header>
 
   <div class="hook">
@@ -194,13 +240,28 @@
     <div class="note">豆包、可灵、即梦、Seedance、通义 Qwen、Kimi、智谱 GLM、百度、万相、MiniMax、阶跃等国产模型系列齐全。</div>
   </div>
 
-  <footer>
+  <div class="srcnote">
     数据来源：Nova Nexus 官方实时目录（分站 ¥ 客户价 2026-09-07 + 分销价导出）· 官方厂商公开价 · SuperCLUE 中文基准。<br>
-    价格为公开对外价，仅供参考，以平台实时报价为准；本页不含任何进货价 / 利润 / 加价率等经营数据。<br>
-    © Nova Nexus 星海智能 · 面向开发者与企业用户 · 官方网站：
-    <a href="https://dolphin.token6688.com/" target="_blank" rel="noopener">https://dolphin.token6688.com/</a>
-  </footer>
+    价格为公开对外价，仅供参考，以平台实时报价为准；本页不含任何进货价 / 利润 / 加价率等经营数据。
+  </div>
 </div>
+
+<footer class="sitefoot">
+  <div class="sfwrap">
+    <div class="sflinks">
+      <a href="../index.html">品牌首页</a> · <a href="../docs/models.html">模型覆盖</a> · <a href="../docs/api.html">API 文档</a> ·
+      <a href="index.html">价格表 ¥</a> · <a href="对外价目表.html">对外价目表</a> · <a href="../docs/pricing.html">定价洞察</a> ·
+      <a href="https://dolphin.token6688.com/" target="_blank" rel="noopener">官方网站</a>
+    </div>
+    <div class="sfcom">
+      本页价格均为<b>对外客户价</b>，与官方公开价对比仅标注「倍率 / 省 X%」；不含任何进货价 / 利润 / 加价率等经营数据，实际以官网实时报价为准。
+    </div>
+    <div class="sfcpr">
+      © Nova Nexus 星海智能国际站 · 面向开发者与企业 · 官网
+      <a href="https://dolphin.token6688.com/" target="_blank" rel="noopener">dolphin.token6688.com</a>
+    </div>
+  </div>
+</footer>
 
 <script src="assets/chart.umd.min.js"></script>
 <script src="nn_compare.js"></script>
