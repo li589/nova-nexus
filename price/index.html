@@ -64,6 +64,7 @@
   .p-video{background:rgba(167,139,250,.15);color:var(--vio)}
   .p-image{background:rgba(34,211,238,.15);color:var(--acc2)}
   .p-audio{background:rgba(52,211,153,.15);color:var(--grn)}
+  .p-new{background:rgba(52,211,153,.20);color:var(--grn);border:1px solid rgba(52,211,153,.5)}
   .unit{color:var(--mut);font-size:11px}
   /* Gen grid */
   .gen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:6px}
@@ -144,7 +145,7 @@
 
   <div class="sec">
     <h2><span class="em">🔍</span> 全量模型价格表</h2>
-    <div class="sub">94 款在售模型 · 支持搜索与分类筛选 · ⚡ 为 Nova Nexus 对外价（按次/张计费），$ 为 OpenRouter 混合价（按百万 token 计费，两者不可直接换算）。</div>
+    <div class="sub"><span id="cntAll"></span> 款在售模型 · 支持搜索与分类筛选 · ⚡ 为 Nova Nexus 对外价（按次/张计费），$ 为 OpenRouter 混合价（按百万 token 计费，两者不可直接换算）。标注「实时」者为分站实时抓取的最低渠道客户价（¥ 人民币）。</div>
     <div class="filterbar">
       <input type="text" id="search" placeholder="搜索模型名称…（如 GPT、可灵、Seedance）">
       <div class="tabs" id="tabs">
@@ -175,7 +176,8 @@
       </table>
     </div>
     <div class="note">⚡ 为平台算力点（人民币充值按实时汇率结算），按「次/张」计费；OpenRouter 按「百万 token」计费。
-      两者计价方式不同，<b>金额不可直接换算</b>。Nova Nexus 的差异化在于：<b>同一账号可同时调用对话、视频、图片、语音四类模型</b>，
+      两者计价方式不同，<b>金额不可直接换算</b>。标注「<span class="pill p-new">实时</span>」的型号价格为分站实时抓取的最低渠道客户价（¥ 人民币），与 ⚡ 算力点同为<b>对外客户价</b>，单位不同亦不可直接换算。
+      Nova Nexus 的差异化在于：<b>同一账号可同时调用对话、视频、图片、语音四类模型</b>，
       无需分别注册海外厂商账号、无需双币信用卡。「—」表示该平台无此模型或无公开报价。</div>
   </div>
 
@@ -215,6 +217,8 @@ var CATEMOJI = {chat:"💬", video:"🎬", image:"🖼️", audio:"🎙️"};
   document.getElementById("upd").innerHTML = dt
     ? '<span class="dot"></span>数据更新：<b>'+dt+'</b>'+src
     : "";
+  var cnt = document.getElementById("cntAll");
+  if (cnt) cnt.textContent = (D.nn_count || (D.rows ? D.rows.length : ""));
 })();
 
 // KPI
@@ -305,6 +309,14 @@ function fmtNN(v){
   if(v<1) return v.toFixed(4);
   return v.toFixed(3);
 }
+function fmtRMB(v){
+  if(v==null) return "—";
+  if(v<0.001) return v.toFixed(6);
+  if(v<0.01) return v.toFixed(5);
+  if(v<1) return v.toFixed(4);
+  if(v<100) return v.toFixed(2);
+  return v.toFixed(1);
+}
 function fmtOR(v){
   if(v==null) return "—";
   if(v>=100) return v.toFixed(1);
@@ -338,7 +350,14 @@ function renderTable(){
   tb.innerHTML = filtered.map(function(r){
     var pillCls = "p-" + r.cat;
     var pillHtml = '<span class="pill ' + pillCls + '">' + CATEMOJI[r.cat] + " " + CATNAME[r.cat] + "</span>";
-    var nnHtml  = r.nn != null ? "⚡ " + fmtNN(r.nn) : "—";
+    var nnHtml;
+    if (r.unit === "rmb" && r.nn_rmb != null) {
+      nnHtml = "¥ " + fmtRMB(r.nn_rmb) + ' <span class="pill p-new">实时</span>';
+    } else if (r.nn != null) {
+      nnHtml = "⚡ " + fmtNN(r.nn);
+    } else {
+      nnHtml = "—";
+    }
     var orHtml  = r.or_blended != null ? "$ " + fmtOR(r.or_blended) : "—";
     var intHtml = r.intel != null ? r.intel.toFixed(1) : "—";
     return "<tr>" +
