@@ -7,7 +7,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="../assets/favicon-180x180.png">
 <title>模型覆盖 · Nova Nexus 星海智能</title>
-<meta name="description" content="Nova Nexus 模型覆盖清单：对话 / 视频 / 图片 / 语音四类在售模型概览（对话 43 · 视频 49 · 图片 22 · 语音 9）。">
+<meta name="description" content="Nova Nexus 模型覆盖清单：对话 44 · 视频 35 · 图片 23 · 语音 9，共 111 款在售。">
 <style>
   :root{--bg:#070a16;--card:#121833;--line:#283158;--txt:#eaf0ff;--mut:#9aa3c9;--acc:#5b8cff;--acc2:#22d3ee;}
   *{box-sizing:border-box;margin:0;padding:0}
@@ -15,14 +15,12 @@
     color:var(--txt);font-family:-apple-system,"PingFang SC","Microsoft YaHei",Segoe UI,sans-serif;line-height:1.7}
   a{color:var(--acc2);text-decoration:none}
   .wrap{max-width:940px;margin:0 auto;padding:34px 20px 64px}
-  /* ===== 全站统一顶栏 ===== */
   .sitenav{position:sticky;top:0;z-index:60;background:rgba(6,9,20,.84);
     backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid rgba(40,49,88,.85)}
   .sitenav .snwrap{max-width:1180px;margin:0 auto;padding:0 18px;display:flex;align-items:center;
     justify-content:space-between;gap:12px;min-height:58px}
   .snbrand{display:flex;align-items:center;gap:9px;font-weight:800;font-size:15px;color:#eaf0ff!important;
     text-decoration:none!important;letter-spacing:.3px;white-space:nowrap}
-  .snbrand:hover{color:#fff!important;text-decoration:none!important}
   .snlogo{width:26px;height:26px;flex:none}
   .snlinks{display:flex;align-items:center;gap:2px;flex-wrap:wrap;justify-content:flex-end}
   .snlinks a{color:#9aa3c9;font-size:13px;font-weight:600;text-decoration:none;padding:6px 10px;
@@ -30,12 +28,10 @@
   .snlinks a:hover{color:#eaf0ff;background:rgba(91,140,255,.14);text-decoration:none}
   .snlinks a.sn-hot{color:#04122b;background:linear-gradient(92deg,#5b8cff,#22d3ee);border-radius:999px;
     padding:5px 14px;font-weight:700}
-  .snlinks a.sn-hot:hover{color:#04122b;background:linear-gradient(92deg,#5b8cff,#22d3ee)}
   .snlinks a.snoff{color:#22d3ee;border:1px solid rgba(34,211,238,.45);border-radius:999px;padding:4px 12px}
   .snlinks a.snoff:hover{background:rgba(34,211,238,.14);color:#22d3ee}
   @media(max-width:820px){.sitenav .snwrap{flex-direction:column;padding:10px 12px;gap:8px}
     .snlinks{justify-content:center}}
-  /* ===== 全站统一页脚 ===== */
   .sitefoot{border-top:1px solid rgba(40,49,88,.85);padding:30px 18px 46px;color:#9aa3c9;
     font-size:12.5px;line-height:1.9}
   .sitefoot .sfwrap{max-width:1180px;margin:0 auto;text-align:center}
@@ -57,12 +53,27 @@
   .kpi .n{font-size:28px;font-weight:850;color:var(--acc2)}
   .kpi .l{font-size:13px;color:var(--mut);margin-top:4px}
   .sec{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;margin:16px 0}
-  .sec h2{font-size:19px;margin-bottom:10px}
+  .sec h2{font-size:19px;margin-bottom:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .sec h2 .sn{font-size:12px;font-weight:600;color:var(--mut)}
+  .brand{margin-bottom:16px}
+  .brand:last-child{margin-bottom:0}
+  .bname{font-size:13px;color:var(--acc2);font-weight:700;margin-bottom:8px;
+    border-left:3px solid var(--acc2);padding-left:8px}
+  .bname span{color:var(--mut);font-weight:600;margin-left:8px}
   .chips{display:flex;flex-wrap:wrap;gap:8px}
-  .chip{background:#0a0f22;border:1px solid var(--line);border-radius:999px;padding:5px 12px;
-    font-size:13.5px;color:#cfe6ff}
+  .chip{background:#0a0f22;border:1px solid var(--line);border-radius:10px;padding:6px 11px;
+    font-size:13px;color:#cfe6ff;display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap}
+  .chip.is-latest{border-color:rgba(52,211,153,.55);background:rgba(52,211,153,.08)}
+  .chip.is-legacy{color:#8a93b8;border-style:dashed}
+  .chip.is-snapshot{border-color:rgba(245,181,68,.5)}
+  .tg{font-style:normal;font-size:9.5px;border-radius:4px;padding:1px 5px;font-weight:700}
+  .t-latest{background:rgba(52,211,153,.18);color:#34d399}
+  .t-snapshot{background:rgba(245,181,68,.18);color:#f5b544}
+  .tvar{font-style:normal;font-size:10px;color:var(--mut)}
   .note{background:rgba(34,211,238,.08);border:1px solid var(--line);border-radius:12px;
     padding:14px 16px;font-size:14px;color:var(--mut);margin:18px 0}
+  .legend{font-size:12.5px;color:var(--mut);line-height:2}
+  .legend b{color:var(--txt)}
   @media(max-width:760px){.kpis{grid-template-columns:repeat(2,1fr)}}
   @media print{.sitenav,.sitefoot{display:none!important}}
 </style>
@@ -99,6 +110,7 @@
   <div class="crumb"><a href="../index.html">Nova Nexus</a> / 模型覆盖</div>
   <h1>模型覆盖清单</h1>
   <p class="lead">Nova Nexus 以统一 API 聚合对话 / 视频 / 图片 / 语音四类模型，「多模型统一调用」和「AI 短剧网页工作台」都建立在它之上。</p>
+  <div class="lead" style="font-size:13.5px">目录同步时间：2026-09-15 · 共 111 款在售模型（已剔除下架型号）</div>
 
   <div class="rel">
     <a href="../price/index.html">💰 全量价格表（¥）</a>
@@ -108,47 +120,24 @@
   </div>
 
   <div class="kpis">
-    <div class="kpi"><div class="n">43</div><div class="l">💬 对话模型</div></div>
-    <div class="kpi"><div class="n">49</div><div class="l">🎬 视频生成</div></div>
-    <div class="kpi"><div class="n">22</div><div class="l">🖼️ 图片生成</div></div>
-    <div class="kpi"><div class="n">9</div><div class="l">🎙️ 语音生成</div></div>
+    <div class="kpi"><div class="n">111</div><div class="l">在售模型总数</div></div>
+    <div class="kpi"><div class="n">32</div><div class="l">最新一代</div></div>
+    <div class="kpi"><div class="n">35</div><div class="l">视频生成</div></div>
+    <div class="kpi"><div class="n">32</div><div class="l">图片+语音</div></div>
   </div>
 
-  <div class="sec">
-    <h2>💬 对话模型（43）</h2>
-    <div class="chips">
-      <span class="chip">GPT 系列</span><span class="chip">Claude 系列</span><span class="chip">DeepSeek</span>
-      <span class="chip">Kimi</span><span class="chip">智谱 GLM</span><span class="chip">通义千问</span>
-      <span class="chip">豆包</span><span class="chip">文心一言</span><span class="chip">更多国产 / 海外模型持续上新</span>
-    </div>
+  <div class="legend">
+    <b>最新</b> 同系列当前最高版本 · <b>虚线灰名</b> 旧版（同系列已出新版，仍在售）· <b>快照</b> 固定日期模型 ·
+    未标注的同系列无版本对照或单品 · 名称后 <b>+N 通道</b> 表示同一模型还有按次 / 按秒 / 电商等计费通道，价格与适用场景不同，见价格表。
   </div>
 
-  <div class="sec">
-    <h2>🎬 视频生成（49）</h2>
-    <div class="chips">
-      <span class="chip">可灵 Kling</span><span class="chip">Seedance</span><span class="chip">Veo</span>
-      <span class="chip">即梦 Dreamina</span><span class="chip">PixVerse</span><span class="chip">MiniMax</span>
-      <span class="chip">Runway</span><span class="chip">Luma</span><span class="chip">更多视频模型持续上新</span>
-    </div>
-  </div>
+<div class="sec"><h2>💬 对话模型（44）<span class="sn">最新一代 11</span></h2><div class="brand"><div class="bname">Anthropic Claude<span>9</span></div><div class="chips"><span class="chip is-latest">Claude Fable 5.1<i class="tg t-latest">最新</i></span><span class="chip is-latest">Claude Opus 5<i class="tg t-latest">最新</i></span><span class="chip is-latest">Claude Sonnet 5<i class="tg t-latest">最新</i></span><span class="chip is-legacy">Claude Fable 5</span><span class="chip">Claude Haiku 4.5</span><span class="chip is-legacy">Claude Opus 4.6</span><span class="chip is-legacy">Claude Opus 4.7</span><span class="chip is-legacy">Claude Opus 4.8</span><span class="chip is-legacy">Claude Sonnet 4.6</span></div></div><div class="brand"><div class="bname">Google Gemini<span>8</span></div><div class="chips"><span class="chip is-latest">Gemini-3.1 Pro<i class="tg t-latest">最新</i></span><span class="chip is-latest">Gemini-3.8 Flash<i class="tg t-latest">最新</i></span><span class="chip is-legacy">Gemini-3 Flash</span><span class="chip is-legacy">Gemini-3 Pro</span><span class="chip">Gemini-3.1 Flash Lite</span><span class="chip is-legacy">Gemini-3.5 Flash</span><span class="chip is-legacy">Gemini-3.6 Flash</span><span class="chip is-legacy">Gemini-3.7 Flash</span></div></div><div class="brand"><div class="bname">OpenAI GPT<span>7</span></div><div class="chips"><span class="chip is-latest">GPT-6 Astra<i class="tg t-latest">最新</i></span><span class="chip">GPT-5.3 Codex</span><span class="chip is-legacy">GPT-5.4</span><span class="chip">GPT-5.4 Mini</span><span class="chip">GPT-5.4 Nano</span><span class="chip is-legacy">GPT-5.5</span><span class="chip is-legacy">GPT-5.6 Sol<i class="tvar">+2 通道（可选通道）</i></span></div></div><div class="brand"><div class="bname">阿里云 通义千问 Qwen<span>4</span></div><div class="chips"><span class="chip is-latest">Qwen3.8-Max<i class="tg t-latest">最新</i></span><span class="chip is-legacy">Qwen3-Max</span><span class="chip">Qwen3.7-Flash</span><span class="chip">Qwen3.7-Plus</span></div></div><div class="brand"><div class="bname">DeepSeek<span>3</span></div><div class="chips"><span class="chip is-latest">DeepSeek V4 Pro<i class="tg t-latest">最新</i><i class="tvar">+1 通道（可选通道）</i></span><span class="chip is-latest">DeepSeek V4.1 Flash<i class="tg t-latest">最新</i></span><span class="chip is-legacy">DeepSeek V4 Flash</span></div></div><div class="brand"><div class="bname">xAI Grok<span>3</span></div><div class="chips"><span class="chip is-latest">Grok-4.6<i class="tg t-latest">最新</i></span><span class="chip">Grok-4.20 Non-Reasoning</span><span class="chip is-legacy">Grok-4.5</span></div></div><div class="brand"><div class="bname">智谱 GLM<span>3</span></div><div class="chips"><span class="chip is-latest">GLM-5.3<i class="tg t-latest">最新</i></span><span class="chip is-legacy">GLM-5.2</span><span class="chip">GLM-5.3 Flash</span></div></div><div class="brand"><div class="bname">MiniMax<span>1</span></div><div class="chips"><span class="chip">MiniMax-M3</span></div></div><div class="brand"><div class="bname">OpenAI<span>1</span></div><div class="chips"><span class="chip">GPT Codex Auto Review</span></div></div><div class="brand"><div class="bname">字节 豆包<span>1</span></div><div class="chips"><span class="chip">Doubao Seed 2.0 Pro</span></div></div><div class="brand"><div class="bname">月之暗面 Kimi<span>1</span></div><div class="chips"><span class="chip">Kimi K3</span></div></div></div>
+<div class="sec"><h2>🎬 视频生成（35）<span class="sn">最新一代 16</span></h2><div class="brand"><div class="bname">阿里 通义万相 Wan<span>3</span></div><div class="chips"><span class="chip is-latest">Wan 3.0<i class="tg t-latest">最新</i><i class="tvar">+1 通道（特价按次）</i></span><span class="chip is-legacy">Wan 2.6</span><span class="chip">Wan 2.7 Video</span></div></div><div class="brand"><div class="bname">Google Veo<span>2</span></div><div class="chips"><span class="chip is-latest">Veo-4 Omni<i class="tg t-latest">最新</i><i class="tvar">+1 通道（视频转视频）</i></span><span class="chip">Veo-3.1</span></div></div><div class="brand"><div class="bname">HappyHorse<span>2</span></div><div class="chips"><span class="chip is-latest">HappyHorse 1.1<i class="tg t-latest">最新</i></span><span class="chip is-legacy">HappyHorse 1.0</span></div></div><div class="brand"><div class="bname">MiniMax<span>2</span></div><div class="chips"><span class="chip">MiniMax H3</span><span class="chip">MiniMax Hailuo 2.3</span></div></div><div class="brand"><div class="bname">xAI Grok<span>2</span></div><div class="chips"><span class="chip is-latest">Grok Imagine 1.5<i class="tg t-latest">最新</i><i class="tvar">+2 通道（七图特价 / 特价按次）</i></span><span class="chip is-legacy">Grok-1.0 多图 · 特价<i class="tvar">+1 通道（可选通道）</i></span></div></div><div class="brand"><div class="bname">字节 Seedance<span>2</span></div><div class="chips"><span class="chip is-latest">Seedance 2.5 · 官方直连<i class="tg t-latest">最新</i><i class="tvar">+2 通道（特价按次 / 特价按秒）</i></span><span class="chip is-legacy">Seedance 2.0 · 官方直连<i class="tvar">+4 通道（特价按秒 / 特价按次 / 电商特价 / 九图特价）</i></span></div></div><div class="brand"><div class="bname">爱诗 PixVerse<span>2</span></div><div class="chips"><span class="chip is-latest">PixVerse V6<i class="tg t-latest">最新</i></span><span class="chip is-legacy">PixVerse C1 · 过人脸</span></div></div><div class="brand"><div class="bname">Omni<span>1</span></div><div class="chips"><span class="chip">Omni Flash 1.1</span></div></div><div class="brand"><div class="bname">OpenAI Sora<span>1</span></div><div class="chips"><span class="chip">Sora-2 官方无水印</span></div></div><div class="brand"><div class="bname">字节 即梦<span>1</span></div><div class="chips"><span class="chip">即梦 3.5 Pro</span></div></div><div class="brand"><div class="bname">快手 可灵<span>1</span></div><div class="chips"><span class="chip is-latest">Kling V3<i class="tg t-latest">最新</i><i class="tvar">+3 通道（可选通道 / 参考模式）</i></span></div></div><div class="brand"><div class="bname">生数 Vidu<span>1</span></div><div class="chips"><span class="chip">Vidu Q3</span></div></div><div class="brand"><div class="bname">阿里云<span>1</span></div><div class="chips"><span class="chip">Aliyun Video Super-Resolution</span></div></div></div>
+<div class="sec"><h2>🖼️ 图片生成（23）<span class="sn">最新一代 5</span></h2><div class="brand"><div class="bname">Google Gemini<span>3</span></div><div class="chips"><span class="chip">Gemini-3 Pro Image</span><span class="chip">Gemini-3.1 Flash Image</span><span class="chip">Gemini-3.1 Flash Lite Image</span></div></div><div class="brand"><div class="bname">OpenAI GPT<span>3</span></div><div class="chips"><span class="chip is-latest">GPT Image 2.5 Sunb<i class="tg t-latest">最新</i><i class="tvar">+1 通道（可选通道）</i></span><span class="chip">GPT Image 1.5</span><span class="chip is-legacy">GPT Image 2 Official<i class="tvar">+2 通道（可选通道）</i></span></div></div><div class="brand"><div class="bname">字节 豆包<span>3</span></div><div class="chips"><span class="chip is-latest">Doubao Seedream 5.0<i class="tg t-latest">最新</i></span><span class="chip is-legacy">Doubao Seedream 4.5</span><span class="chip">Doubao Seedream 5.0 Pro</span></div></div><div class="brand"><div class="bname">Black Forest Flux<span>2</span></div><div class="chips"><span class="chip">Flux Kontext</span><span class="chip">Flux-2.0 Pro</span></div></div><div class="brand"><div class="bname">xAI Grok<span>2</span></div><div class="chips"><span class="chip is-latest">Grok Imagine 2.0 图像<i class="tg t-latest">最新</i></span><span class="chip is-legacy">Grok Imagine 1.0 Image</span></div></div><div class="brand"><div class="bname">阿里云 通义千问 Qwen<span>2</span></div><div class="chips"><span class="chip is-latest">Qwen Image 3.0<i class="tg t-latest">最新</i></span><span class="chip is-legacy">Qwen Image 2.0</span></div></div><div class="brand"><div class="bname">Midjourney<span>1</span></div><div class="chips"><span class="chip">Midjourney</span></div></div><div class="brand"><div class="bname">人脸转绘<span>1</span></div><div class="chips"><span class="chip">人脸转绘</span></div></div><div class="brand"><div class="bname">快手 可灵<span>1</span></div><div class="chips"><span class="chip">Kling Image O3</span></div></div><div class="brand"><div class="bname">阿里 通义万相 Wan<span>1</span></div><div class="chips"><span class="chip">Wan 2.7 Image</span></div></div><div class="brand"><div class="bname">阿里云<span>1</span></div><div class="chips"><span class="chip">Aliyun Image Super-Resolution</span></div></div></div>
+<div class="sec"><h2>🎙️ 语音生成（9）<span class="sn">最新一代 0</span></h2><div class="brand"><div class="bname">MiniMax<span>3</span></div><div class="chips"><span class="chip">MiniMax Speech 2.8 (Voice Clone)</span><span class="chip">MiniMax Voice Clone</span><span class="chip">MiniMax Voice Design</span></div></div><div class="brand"><div class="bname">Google Gemini<span>2</span></div><div class="chips"><span class="chip">Gemini-2.5 Pro TTS</span><span class="chip">Gemini-3.1 Flash TTS</span></div></div><div class="brand"><div class="bname">OpenAI<span>2</span></div><div class="chips"><span class="chip">GPT TTS</span><span class="chip">GPT TTS HD</span></div></div><div class="brand"><div class="bname">OpenAI GPT<span>1</span></div><div class="chips"><span class="chip">GPT-4o Mini TTS</span></div></div><div class="brand"><div class="bname">Suno<span>1</span></div><div class="chips"><span class="chip">Suno Music</span></div></div></div>
 
-  <div class="sec">
-    <h2>🖼️ 图片生成（22）</h2>
-    <div class="chips">
-      <span class="chip">Seedream</span><span class="chip">GPT Image</span><span class="chip">通义万相</span>
-      <span class="chip">即梦</span><span class="chip">Flux</span><span class="chip">SD / 国产生图模型</span>
-    </div>
-  </div>
-
-  <div class="sec">
-    <h2>🎙️ 语音生成（9）</h2>
-    <div class="chips">
-      <span class="chip">Suno</span><span class="chip">MiniMax Voice</span><span class="chip">TTS 语音克隆</span>
-      <span class="chip">CosyVoice</span><span class="chip">更多语音 / 音乐模型</span>
-    </div>
-  </div>
-
-  <div class="note">📌 以上为公开能力概览与代表性模型，实际在售模型清单与编号以官方实时目录为准；模型持续上新，国产主流模型已全覆盖。具体在售型号与人民币售价见 <a href="../price/index.html">全量价格表</a>。</div>
+  <div class="note">📌 同一模型的多个计费通道（官方直连 / 特价按次 / 特价按秒 / 电商特价 等）在价格表里分行展示，本页合并计数。
+  模型持续上新，以官方实时目录为准；具体在售型号与人民币售价见 <a href="../price/index.html">全量价格表</a>。</div>
 </div>
 
 <footer class="sitefoot">
@@ -159,7 +148,7 @@
       <a href="https://dolphin.token6688.com/" target="_blank" rel="noopener">官方网站</a>
     </div>
     <div class="sfcom">
-      覆盖数量是公开概览，实际在售模型以官网实时目录为准。
+      覆盖数量基于平台实时目录（2026-09-15），实际在售模型以官网实时目录为准。
     </div>
     <div class="sfcpr">
       © Nova Nexus 星海智能国际站 · 面向开发者与企业 · 官网
