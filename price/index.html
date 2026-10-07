@@ -114,6 +114,9 @@
   .toggle input{accent-color:#5b8cff;cursor:pointer}
   .legend{font-size:12px;color:var(--mut);margin:8px 0 0;line-height:1.9}
   .legend b{color:var(--txt);font-weight:600}
+  .pendtip{background:rgba(245,181,68,.10);border:1px solid rgba(245,181,68,.4);border-radius:10px;
+    padding:9px 14px;font-size:12.5px;color:#f5d9a0;margin:0 auto 12px;text-align:center}
+  .pend{color:#f5b544;font-size:11.5px;font-weight:600}
   .p-chat{background:rgba(91,140,255,.15);color:var(--acc)}
   .p-video{background:rgba(167,139,250,.15);color:var(--vio)}
   .p-image{background:rgba(34,211,238,.15);color:var(--acc2)}
@@ -247,6 +250,7 @@
       <b>变体</b> 同一模型的不同计费通道（按次/按秒/电商/九图…），价格与适用场景不同，需分开看
     </div>
     <div class="rescount" id="rescount" data-page-node-id="X7QbnbymMOoPq25kRIFIYY"></div>
+    <div class="pendtip" id="pendingTip" style="display:none"></div>
     <div class="tblwrap" data-page-node-id="NLo80dmYWzKB6AKHFgp9F3">
       <table id="tAll" data-page-node-id="mOk8JkeZNQ45eitUdg01AB">
         <thead data-page-node-id="uGzpQEpq0lCGmHEwE6MMdB"><tr data-page-node-id="RUHpwWV2DM3HgGJDWZWnAT">
@@ -311,6 +315,16 @@ var CATEMOJI = {chat:"💬", video:"🎬", image:"🖼️", audio:"🎙️"};
   document.getElementById("upd").innerHTML = dt
     ? '<span class="dot"></span>数据更新：<b>'+dt+'</b>'+src
     : "";
+  // 目录比价格快照新时，提示「暂未标价」口径
+  var pend = m.pending_priced || 0;
+  var tip = document.getElementById("pendingTip");
+  if (tip) {
+    tip.style.display = pend ? "block" : "none";
+    tip.innerHTML = pend
+      ? "⚠️ 目录更新至 <b>"+(m.catalog_date||dt)+"</b>，其中 <b>"+pend+"</b> 款为新上架型号，"
+        + "售价以官网实时报价为准（价格快照 "+ (m.price_date||dt) +"）"
+      : "";
+  }
   var cnt = document.getElementById("cntAll");
   if (cnt) cnt.textContent = (D.nn_count || (D.rows ? D.rows.length : ""));
   var sd = document.getElementById("srcDate");
@@ -442,7 +456,8 @@ function renderTable(){
   tb.innerHTML = filtered.map(function(r){
     var pillCls = "p-" + r.cat;
     var pillHtml = '<span class="pill ' + pillCls + '">' + CATEMOJI[r.cat] + " " + CATNAME[r.cat] + "</span>";
-    var priceHtml = r.price != null ? fmtPrice(r.price) : "—";
+    var priceHtml = r.price != null ? fmtPrice(r.price)
+      : (r.src === "pending" ? '<span class="pend">暂未标价</span>' : "—");
     var basisHtml = r.basis ? '<span class="basis">'+esc(r.basis)+"</span>" : "—";
     var multHtml = fmtMult(r.mult);
     var stdLine = (r.std && r.std !== r.name)
