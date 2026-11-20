@@ -117,7 +117,6 @@
   .pendtip{background:rgba(245,181,68,.10);border:1px solid rgba(245,181,68,.4);border-radius:10px;
     padding:9px 14px;font-size:12.5px;color:#f5d9a0;margin:0 auto 12px;text-align:center}
   .pend{color:#f5b544;font-size:11.5px;font-weight:600}
-  .premium{color:#fb7185;font-size:11.5px;font-weight:600}
   .t-tier{background:rgba(91,140,255,.14);color:#5b8cff}
   .p-chat{background:rgba(91,140,255,.15);color:var(--acc)}
   .p-video{background:rgba(167,139,250,.15);color:var(--vio)}
@@ -267,9 +266,8 @@
       </table>
     </div>
     <div class="note" data-page-node-id="jO6NEUbDTCEXL7l2DKtTUd">
-      倍率 = 平台售价 ÷ 厂商官方公开价；<b>省 X%</b> = (1 − 倍率) × 100%，即比官方公开价便宜的比例；
-      少数通道因供给或能力差异存在<b>溢价</b>，如实标为「贵 X%」；无官方公开基准的型号标「—」。
-      生成类模型没有可比的官方公开价，倍率标「—」；新上架且尚未标价的型号，售价与倍率显示「—」。
+      倍率 = 平台售价 ÷ 厂商官方公开价；<b>省 X%</b> = (1 − 倍率) × 100%，即比官方公开价便宜的比例。
+      高于官方公开价的型号、生成类无可比官方基准的型号，以及新上架尚未标价的型号，倍率统一显示「—」。
       价格会随市场调整，<b data-page-node-id="hN0mhFKgj55kHZEepHpD1M">以官网实时报价为准</b>。
     </div>
   </div>
@@ -408,12 +406,9 @@ function fmtPrice(v){
 }
 function fmtMult(mult){
   if(mult==null) return "—";
-  if(mult < 1){
-    var save = (1 - mult) * 100;
-    return '<b>'+mult.toFixed(2)+'×</b><span class="save">省'+Math.round(save)+'%</span>';
-  }
-  var pre = (mult - 1) * 100;
-  return '<b>'+mult.toFixed(2)+'×</b><span class="premium">贵'+Math.round(pre)+'%</span>';
+  if(mult > 1.0005) return "—";        // 高于官方公开价：不展示倍率
+  var save = Math.round((1 - mult) * 100);
+  return '<b>'+mult.toFixed(2)+'×</b>' + (save>0 ? '<span class="save">省'+save+'%</span>' : "");
 }
 
 var STATUSCN = (D.meta && D.meta.status_cn) || {latest:"最新",legacy:"旧版",current:"在售",snapshot:"快照版"};
