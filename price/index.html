@@ -117,6 +117,8 @@
   .pendtip{background:rgba(245,181,68,.10);border:1px solid rgba(245,181,68,.4);border-radius:10px;
     padding:9px 14px;font-size:12.5px;color:#f5d9a0;margin:0 auto 12px;text-align:center}
   .pend{color:#f5b544;font-size:11.5px;font-weight:600}
+  .premium{color:#fb7185;font-size:11.5px;font-weight:600}
+  .t-tier{background:rgba(91,140,255,.14);color:#5b8cff}
   .p-chat{background:rgba(91,140,255,.15);color:var(--acc)}
   .p-video{background:rgba(167,139,250,.15);color:var(--vio)}
   .p-image{background:rgba(34,211,238,.15);color:var(--acc2)}
@@ -229,6 +231,7 @@
         <div class="tab" data-cat="video" data-page-node-id="teRauKPNFkPDxUd4M4W8xy">🎬 视频</div>
         <div class="tab" data-cat="image" data-page-node-id="KONFGuU1KvjfFA9srUVONw">🖼️ 图片</div>
         <div class="tab" data-cat="audio" data-page-node-id="2ZbMfD1NpTqdky17M3XjAW">🎙️ 语音</div>
+        <div class="tab" data-cat="embedding" data-page-node-id="2ZbMfD1NpTqdky17M3XjAY">🔢 向量</div>
       </div>
       <select class="sortsel" id="sortsel" data-page-node-id="B14PNhBrVhFIMBmcJJ8Nhf">
         <option value="cat" data-page-node-id="60XKJBxGpYIIPDYuVnBk2n">按分类</option>
@@ -264,7 +267,8 @@
       </table>
     </div>
     <div class="note" data-page-node-id="jO6NEUbDTCEXL7l2DKtTUd">
-      倍率 = 平台售价 ÷ 官方厂商公开价（美元按汇率折成 ¥）；省 X% = (1 − 倍率) × 100%，就是比官方公开价便宜的比例。
+      倍率 = 平台售价 ÷ 厂商官方公开价；<b>省 X%</b> = (1 − 倍率) × 100%，即比官方公开价便宜的比例；
+      少数通道因供给或能力差异存在<b>溢价</b>，如实标为「贵 X%」；无官方公开基准的型号标「—」。
       生成类模型没有可比的官方公开价，倍率标「—」；新上架且尚未标价的型号，售价与倍率显示「—」。
       价格会随市场调整，<b data-page-node-id="hN0mhFKgj55kHZEepHpD1M">以官网实时报价为准</b>。
     </div>
@@ -304,8 +308,8 @@
 <script src="nn_compare.js"></script>
 <script>
 var D = window.NN_COMPARE || {rows:[],cat_nn:{},cat_or:{},domestic:[]};
-var CATNAME = {chat:"对话/文本", video:"视频生成", image:"图片生成", audio:"语音生成"};
-var CATEMOJI = {chat:"💬", video:"🎬", image:"🖼️", audio:"🎙️"};
+var CATNAME = {chat:"对话/文本", video:"视频生成", image:"图片生成", audio:"语音生成", embedding:"向量/检索", rerank:"重排"};
+var CATEMOJI = {chat:"💬", video:"🎬", image:"🖼️", audio:"🎙️", embedding:"🔢", rerank:"↕️"};
 
 // 更新时间
 (function(){
@@ -404,8 +408,12 @@ function fmtPrice(v){
 }
 function fmtMult(mult){
   if(mult==null) return "—";
-  var save = (1 - mult) * 100;
-  return '<b>'+mult.toFixed(2)+'×</b><span class="save">省'+Math.round(save)+'%</span>';
+  if(mult < 1){
+    var save = (1 - mult) * 100;
+    return '<b>'+mult.toFixed(2)+'×</b><span class="save">省'+Math.round(save)+'%</span>';
+  }
+  var pre = (mult - 1) * 100;
+  return '<b>'+mult.toFixed(2)+'×</b><span class="premium">贵'+Math.round(pre)+'%</span>';
 }
 
 var STATUSCN = (D.meta && D.meta.status_cn) || {latest:"最新",legacy:"旧版",current:"在售",snapshot:"快照版"};
@@ -416,12 +424,20 @@ function statusTag(r){
 }
 function channelTag(r){
   if(r.variant) return '<span class="tag t-variant">'+esc(r.variant)+"</span>";
+  if(r.variant_group === false) return "";     // 并列型号，非通道变体
   if(r.is_main) return '<span class="tag t-main">主通道</span>';
   return '<span class="tag t-alt">可选通道</span>';
 }
+function tierTag(r){
+  var t = r.tiers || [];
+  if(!t.length) return "";
+  var s = t.slice(0,3).join("/");
+  return '<span class="tag t-tier">'+esc(s)+(t.length>3?" +"+(t.length-3):"")+" 档</span>";
+}
 function matchSearch(r, q){
   if(!q) return true;
-  var hay = (r.name + " " + (r.std||"") + " " + (r.brand||"") + " " + (r.variant||"")).toLowerCase();
+  var hay = (r.name + " " + (r.std||"") + " " + (r.brand||"") + " " + (r.variant||"")
+            + " " + ((r.tiers||[]).join(" "))).toLowerCase();
   return hay.indexOf(q) >= 0;
 }
 
@@ -443,7 +459,7 @@ function renderTable(){
   } else if(curSort==="name"){
     filtered.sort(function(a,b){ return a.name.localeCompare(b.name); });
   } else {
-    var order = {chat:0, video:1, image:2, audio:3};
+    var order = {chat:0, video:1, image:2, audio:3, embedding:4, rerank:5};
     filtered.sort(function(a,b){
       var oa = order[a.cat], ob = order[b.cat];
       if (oa === undefined) oa = 9;
@@ -464,7 +480,7 @@ function renderTable(){
       ? '<span class="mstd">'+esc(r.std)+(r.brand?" · "+esc(r.brand):"")+"</span>" : "";
     return "<tr>" +
       '<td class="name"><span class="mname">'+esc(r.name)+"</span>"+stdLine+
-        statusTag(r)+channelTag(r)+"</td>" +
+        statusTag(r)+channelTag(r)+tierTag(r)+"</td>" +
       "<td>" + pillHtml + "</td>" +
       '<td class="num nn-price">' + priceHtml + "</td>" +
       "<td>" + basisHtml + "</td>" +
